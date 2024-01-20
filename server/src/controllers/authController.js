@@ -84,6 +84,21 @@ export const register = async (req, res) => {
   }
 };
 
+export const companyRegister = async (req, res) => {
+  try {
+    const { companyName, email, password, phone, info } = req.body;
+    if (
+      [companyName, email, password, phone, info].some(
+        (fields) => fields.trim() === ""
+      )
+    ) {
+      throw new ApiError(400, "All fields are required");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -95,4 +110,10 @@ export const login = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const companyLogin = async (req, res) => {
+  try {
+    const { companyName, title } = req.body;
+  } catch (error) {}
 };

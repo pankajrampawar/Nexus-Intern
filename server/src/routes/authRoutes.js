@@ -1,10 +1,15 @@
 import express from "express";
-import { login, register } from "../controllers/authController.js";
+import {
+  companyLogin,
+  login,
+  register,
+  companyRegister,
+} from "../controllers/authController.js";
 import { upload } from "../middlewares/multerMiddleware.js";
 
 const authRouter = express.Router();
 authRouter.post(
-  "/register",
+  "/student/register",
   upload.fields(
     {
       name: "resume",
@@ -18,6 +23,9 @@ authRouter.post(
   register
 );
 
-authRouter.post("/login", login);
+authRouter.post("/company/register", companyRegister);
+
+authRouter.post("/student/login", login);
+authRouter.post("/company/login", companyLogin);
 
 export default authRouter;
