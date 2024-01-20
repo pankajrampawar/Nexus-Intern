@@ -7,7 +7,7 @@ export const navList = [
     {
         name: "Profile",
         img: "/profile.svg",
-        link: "Profile"
+        link: "profile"
     },
     {
         name: "Notifications",
