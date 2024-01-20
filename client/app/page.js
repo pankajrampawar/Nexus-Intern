@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import clsx from 'clsx';
-
+import { studentLogin } from '@/app/action.js'
 const StudentForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -35,14 +35,11 @@ const StudentForm = () => {
         formDataWithFile.append(key, formData[key]);
       }
 
-      const response = await fetch('/api/submit-student', {
-        method: 'POST',
-        body: formDataWithFile,
-      });
+      const response = await studentLogin()
 
-      if (response.ok) {
+      if (response) {
         console.log('Form submitted successfully!');
-        // Redirect or perform other actions upon successful submission
+        
       } else {
         console.error('Failed to submit form');
       }

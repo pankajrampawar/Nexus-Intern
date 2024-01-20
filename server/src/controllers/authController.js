@@ -25,7 +25,7 @@ const generateAccessAndRefreshToken = async (studentId) => {
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, password, phone, info } = req.body;
+    const { fullName, email, password, phone, info, resumeUrl } = req.body;
     console.log(fullName, email, password, phone, info);
     if (
       [fullName, email, password, phone, info].some(

@@ -10,3 +10,9 @@ export const getAllInternships = async () => {
         console.log(error);
     }
 }
+
+export const studentLogin = async (data) => {
+    try {
+        /// adding api request here
+    }
+}
