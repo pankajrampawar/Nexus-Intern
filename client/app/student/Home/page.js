@@ -1,7 +1,6 @@
 'use client'
 
 import InfoCard from "../ui/InforCard"
-import Image from "next/image"
 import React from 'react'
 import {
     getAllInternships
@@ -14,7 +13,7 @@ export default function Home() {
     React.useEffect(()=>{
         const getArrayOfInternships = async ()=> {
             const arrayOfInternships = await getAllInternships();
-            console.log(arrayOfInternships)
+            setInternships(arrayOfInternships);
         }
 
         getArrayOfInternships();
@@ -39,37 +38,30 @@ export default function Home() {
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Technology</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
+
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Banking</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
 
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Civil</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-
 
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Automobile</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-
 
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">FMCG</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-
 
                     </div>
                 </div>
