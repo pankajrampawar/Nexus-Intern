@@ -2,6 +2,7 @@ import { Student } from "../models/studentModel.js";
 import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcrypt";
 import { uploadToCloudinary } from "../utils/Cloudinary.js";
+import Cookie from "cookie-parser";
 
 const generateAccessAndRefreshToken = async (studentId) => {
   try {
@@ -13,7 +14,7 @@ const generateAccessAndRefreshToken = async (studentId) => {
     const refreshToken = student.generateRefreshToken();
     student.refreshToken = refreshToken;
     await student.save({ validBeforeSave: false });
-    return accessToken;
+    return { accessToken, refreshToken };
   } catch (error) {
     console.log("failed to create token", error.message);
   }
@@ -77,16 +78,27 @@ export const register = async (req, res) => {
     const registedStudent = await Student.findById(newStudent._id).select(
       "-password -refershToken"
     );
-    const { accessToken } = await generateAccessAndRefreshToken(newStudent._id);
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      newStudent._id
+    );
 
-    res.status(201).json({
-      success: true,
-      message: "Student registered successfully",
-      data: {
-        student: registedStudent,
-        accessToken,
-      },
-    });
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        success: true,
+        message: "Student registered successfully",
+        data: {
+          student: registedStudent,
+          accessToken,
+          refreshToken,
+        },
+      });
   } catch (error) {
     console.log(error);
   }
@@ -123,17 +135,26 @@ export const login = async (req, res) => {
     if (!passwordMatch) {
       throw new ApiError(400, "Incorrect Password");
     }
-    const accessToken = await generateAccessAndRefreshToken(
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
       existingStudent._id
     );
 
-    res.status(201).json({
-      message: "Login Successfull",
-      data: {
-        student: existingStudent,
-        accessToken,
-      },
-    });
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        message: "Login Successfull",
+        data: {
+          student: existingStudent,
+          accessToken,
+          refreshToken,
+        },
+      });
   } catch (error) {
     console.log(error);
   }
