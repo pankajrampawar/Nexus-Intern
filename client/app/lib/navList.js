@@ -12,7 +12,7 @@ export const navList = [
         img: "/editLocation.svg",
     },
     {
-        name: 'filter',
+        name: 'Filters',
         img: '/filter.svg'
     }
 ]

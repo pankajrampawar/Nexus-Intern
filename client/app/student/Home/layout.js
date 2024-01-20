@@ -1,0 +1,24 @@
+import Sidebar from "../../ui/sidebar"
+import MobileMenu from "@/app/ui/mobileMenu"
+
+export default function HomeLayout({ children }) {
+    return (
+        <main className="min-h-screen flex ">
+            <nav className="min-h-full m-3">
+                <div className="hidden sm:block h-full">
+                    <Sidebar/> 
+                </div>
+
+                <div className="sm:hidden">
+                    <MobileMenu/>
+                </div>
+            </nav>
+
+            <section>
+                <div>
+                    
+                </div>
+            </section>
+        </main>
+    )
+}

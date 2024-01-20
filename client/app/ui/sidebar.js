@@ -1,10 +1,12 @@
 'use client'
 
 import React from 'react';
-import { navList } from '../lib/navlilst';
+import { navList } from '.././lib/navList';
 
 
 export default function Sidebar() {
+
+    const [isFilterClicked, setIsFilterCLicked] = React.useState(false)
 
     const Navitems = () => {
         return <div className='flex flex-col items-center gap-8'>
@@ -26,7 +28,7 @@ export default function Sidebar() {
     }
 
     return (
-        <main className='bg-primary text-white max-w-[200px] text-center h-full rounded-2xl p-3 pr-3 '>
+        <main className='bg-primary text-white max-w-[100px] text-center h-full rounded-2xl p-3 pr-3 '>
             <header className='mt-5 w-full flex justify-center'>
                 <div>
                     Samarho Sarthi
