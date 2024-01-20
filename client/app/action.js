@@ -26,3 +26,17 @@ export const studentSignup = async (data) => {
     console.log(error);
   }
 };
+
+export const getUserInfo = async (id) => {
+  try {
+    const response  = await axios.post("http://localhost:8080/api/student/StudentInfo", {
+      userId: id
+    });
+
+    console.log(response.data)
+    return (response.data.student);
+  } catch (error) {
+    alert('unable to get the user info');
+    console.log(error)
+  }
+}
