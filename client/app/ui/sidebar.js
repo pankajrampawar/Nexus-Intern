@@ -4,6 +4,7 @@ import React from 'react';
 import { navList } from '.././lib/navList';
 import { useRouter } from 'next/navigation';
 import FilterCard from './filterCard';
+import NotificationCard from '../student/ui/notificationCard';
 
 export default function Sidebar() {
 
@@ -76,7 +77,11 @@ export default function Sidebar() {
             }
 
             {
-                isNotificationClicked && <div></div>
+                isNotificationClicked 
+                &&
+                <div className='absolute left-32 shadow-2xl rounded-3xl -translate-y-3/4 z-40'>
+                    <NotificationCard/>
+                </div>
             }
         </main>
     )
