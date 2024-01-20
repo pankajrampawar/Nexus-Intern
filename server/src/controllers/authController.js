@@ -55,6 +55,28 @@ export const register = async (req, res) => {
     if (!resumeLocalPath) {
       throw new ApiError(400, "Resume is required");
     }
+    const hashedPassword = await bcrypt.hash(password, 10);
+ 
+    const newStudent=await Student.create({
+      fullName,
+      email,
+      password: hashedPassword,
+      phone,
+      info,
+      profileImage: profileImageLocalPath,
+      resume: resumeLocalPath,
+    });
+
+    const refreshToken = await generateAccessAndRefreshToken(newStudent._id);
+    
+    res.status(201).json({
+      message: "Student registered successfully",
+      data: {
+        student: newStudent,
+        refreshToken,
+      },
+    });
+
   } catch (error) {
     console.log(error);
   }
