@@ -1,4 +1,4 @@
-import Sidebar from "../../ui/sidebar"
+import Sidebar from "../ui/sidebar"
 import MobileMenu from "@/app/ui/mobileMenu"
 
 export default function HomeLayout({ children }) {
