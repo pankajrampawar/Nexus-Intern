@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import jwt from "jsonwebtoken";
 const companySchema = mongoose.Schema(
   {
     companyName: {
@@ -66,5 +66,38 @@ const companySchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+companySchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+companySchema.methods.matchPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+companySchema.methods.genrateAccessToken = function () {
+  console.log(
+    process.env.JWT_SECRET,
+    process.env.JWT_EXPIRE,
+    process.env.JWT_REFRESH_SECRET,
+    process.env.JWT_REFRESH_EXPIRE
+  );
+  return jwt.sign(
+    { id: this._id, fullName: this.fullName, email: this.email },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRE,
+    }
+  );
+};
+
+companySchema.methods.generateRefreshToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRE,
+  });
+};
 
 export const Company = mongoose.model("Company", companySchema);
