@@ -10,11 +10,7 @@ const StudentForm = () => {
     password: '',
     phone: '',
     bio: '',
-    skill1:'',
-    skill2: '',
-    skill3: '',
-    skill4: '',
-    college: '',
+    skill:'',
     resume: '',
   });
 
@@ -189,35 +185,8 @@ const StudentForm = () => {
           <input
             type="text"
             id="skill"
-            name="skill1"
+            name="skill"
             value={formData.skill1}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
-            required
-          />
-           <input
-            type="text"
-            id="skill"
-            name="skill2"
-            value={formData.skill2}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
-            required
-          />
-           <input
-            type="text"
-            id="skill3"
-            name="skill3"
-            value={formData.skill3}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
-            required
-          />
-           <input
-            type="text"
-            id="skill"
-            name="skill4"
-            value={formData.skill4}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
