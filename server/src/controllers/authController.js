@@ -150,7 +150,34 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {};
+export const logout = async (req, res) => {
+  await Student.findByIdAndUpdate(
+    req.student._id,
+    {
+      $unset: {
+        refreshToken: 1, // this removes the field from document
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json({
+      success: true,
+      data: {},
+      message: "User logged Out",
+    });
+};
 
 export const companyLogin = async (req, res) => {
   try {
