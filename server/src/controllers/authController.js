@@ -22,7 +22,7 @@ export const register = async (req, res) => {
   try {
     const { fullName, email, password, phone, info } = req.body;
     if (
-      [username, email, password, phone, info].some(
+      [fullName, email, password, phone, info].some(
         (fields) => fields.trim() === ""
       )
     ) {
@@ -35,11 +35,11 @@ export const register = async (req, res) => {
     }
     let profileImageLocalPath;
     if (
-      req.file &&
-      Array.isArray(req.file.profileImage) &&
-      req.file.profileImage.length > 0
+      req.files &&
+      Array.isArray(req.files.profileImage) &&
+      req.files.profileImage.length > 0
     ) {
-      profileImageLocalPath = req.file.profileImage[0].path;
+      profileImageLocalPath = req.files.profileImage[0].path;
     }
 
     if (!profileImageLocalPath) {
@@ -47,16 +47,20 @@ export const register = async (req, res) => {
     }
     let resumeLocalPath;
     if (
-      req.file &&
-      Array.isArray(req.file.resume) &&
-      req.file.resume.length > 0
+      req.files &&
+      Array.isArray(req.files.resume) &&
+      req.files.resume.length > 0
     ) {
-      resumeLocalPath = req.file.resume[0].path;
+      resumeLocalPath = req.files.resume[0].path;
     }
     if (!resumeLocalPath) {
       throw new ApiError(400, "Resume is required");
     }
-   
+    console.log(resumeLocalPath,profileImageLocalPath);
+    const resume=await uploadToCloudinary(resumeLocalPath);
+    const profileImage=await uploadToCloudinary(profileImageLocalPath);
+    console.log(resume,profileImage);
+    
  
     const newStudent=await Student.create({
       fullName,
