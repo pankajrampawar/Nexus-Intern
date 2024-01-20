@@ -64,10 +64,17 @@ const studentScheme = mongoose.Schema(
     },
     applications: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Intership"
+        internship: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Internship"
+        },
+        status: {
+          type: String,
+          enum: ["pending", "accepted", "rejected"],
+          default: "pending"
+        }
       }
-    ]
+    ],
   },
 );
 
