@@ -31,7 +31,7 @@ const internshipSchema = new mongoose.Schema(
       required: true,
     },
     time: {
-      type: TimeRanges,
+      type: Date,
     },
     skills: [
       {
