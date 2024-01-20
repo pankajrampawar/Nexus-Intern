@@ -40,7 +40,7 @@ export const editSkills = async (req, res) => {
     const { userId, skills } = req.body;
 
     const updatedStudent = await Student.findByIdAndUpdate(
-      studentID,
+      userId,
       { $set: { skills: skills } },
       { new: true }
     );
