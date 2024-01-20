@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       colors: {
         "surface-color": "#1F1F1F",
-        "primary": "#2D2F31"
+        "primary": "#2D2F31",
+        "on-primary": "#4F5357",
       }
     },
   },
