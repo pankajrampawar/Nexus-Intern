@@ -31,6 +31,14 @@ const studentScheme = mongoose.Schema(
         type: String,
       },
     ],
+    resume: {
+      type: String,
+      required: true,
+    },
+    refreshToken: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
