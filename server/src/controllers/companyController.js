@@ -37,3 +37,32 @@ export const acceptOrRejectIntern = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
+export const getApplicantsForInternship=async (req, res) => {
+  try {
+    const { internshipId, companyId } = req.body;
+
+    
+    if (!internshipId || !companyId) {
+      return res.status(400).json({ error: 'Both internshipId and companyId are required' });
+    }
+
+    
+    const internship = await Internship.findOne({ _id: internshipId, company: companyId })
+      .populate('applicants');
+
+    if (!internship) {
+      console.error('Internship not found');
+      return res.status(404).json({ error: 'Internship not found' });
+    }
+
+    const applicants = internship.applicants;
+
+   
+    return res.status(200).json({ applicants });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

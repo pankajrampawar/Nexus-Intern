@@ -4,13 +4,13 @@ import {
     editBio,
     editSkills,
     getStudentInfo
-} from '../controllers/studentController'
+} from "./../controllers/studentController.js"
 
 const studentRouter = express.Router();
 
-studentRouter.get("StudentInfo", getStudentInfo)
-studentRouter.post("/applyForInternship", applyForInternship);
-studentRouter.post("/editBio", editBio);
-studentRouter.post("/editSkills", editSkills);
+studentRouter.route("/StudentInfo").get(getStudentInfo);
+studentRouter.route("/applyForInternship").post(applyForInternship);
+studentRouter.route("/editBio").post(editBio);
+studentRouter.route("/editSkills").post(editSkills);
 
 export default studentRouter;
