@@ -30,9 +30,8 @@ const internshipSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    postedOn: {
-      type: Date,
-      required: true,
+    time: {
+      type: TimeRanges,
     },
     skills: [
       {
@@ -63,14 +62,6 @@ const internshipSchema = new mongoose.Schema(
       },
     ],
     status: {
-      type: String,
-      required: true,
-    },
-    createdBy: {
-      type: String,
-      required: true,
-    },
-    updatedBy: {
       type: String,
       required: true,
     },
