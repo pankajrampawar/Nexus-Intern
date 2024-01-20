@@ -1,19 +1,32 @@
 'use client'
 
+import { getUserInfo } from '@/app/action';
 import { useState, useEffect } from 'react';
 
 export default function Profile() {
 
     const [application, setApplication] = useState();
 
-    useEffect(()=>{
-        const getApplicationsArray = async () => {
-            const applicationArray = await getUserApplication();
-            setApplication(applicationArray);
+    // useEffect(()=>{
+    //     const getApplicationsArray = async () => {
+    //         const applicationArray = await getUserApplication();
+    //         setApplication(applicationArray);
+    //     }
+
+    //     getApplicationsArray();
+    // }, [])
+
+    useEffect(()=> {
+        const userId = "65ab92bd98f8d750e03053fb"
+        
+        const fetchUserInfo = async () => {
+            const userInfo = await getUserInfo(userId);
+            console.log(userInfo)
         }
 
-        getApplicationsArray();
+        fetchUserInfo();
     }, [])
+    
     const [userData, setUserData] = useState({
         name: "",
         bio: "",
@@ -22,8 +35,8 @@ export default function Profile() {
         pastInternships: ' ',
         college: ' ',
         education: ' '
+        
     })
-
     return (
         <main className="bg-primary max-w-[1000px] mx-auto p-10 mt-10 sm:mt-0 flex flex-col gap-10">
             <section className='w-full text-white border border-white rounded-3xl flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-10 p-5'>
