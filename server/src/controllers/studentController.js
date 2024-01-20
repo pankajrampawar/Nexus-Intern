@@ -1,5 +1,5 @@
-import { Student } from 'path-to-your-student-model';
-import { Internship } from 'path-to-your-internship-model';
+import { Student } from "../models/studentModel.js";
+import { Internship } from "../models/internshipModel.js";
 
 export const applyForInternship = async (req, res) => {
   try {
@@ -8,12 +8,16 @@ export const applyForInternship = async (req, res) => {
     // Update the Student's applications
     const updatedStudent = await Student.findByIdAndUpdate(
       userId,
-      { $addToSet: { applications: { internship: internshipId, status: "pending" } } },
+      {
+        $addToSet: {
+          applications: { internship: internshipId, status: "pending" },
+        },
+      },
       { new: true }
     );
 
     if (!updatedStudent) {
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: "Student not found" });
     }
 
     // Update the Internship's applicants
@@ -24,16 +28,19 @@ export const applyForInternship = async (req, res) => {
     );
 
     if (!updatedInternship) {
-      return res.status(404).json({ message: 'Internship not found' });
+      return res.status(404).json({ message: "Internship not found" });
     }
 
-    return res.status(200).json({ message: 'Internship applied successfully', updatedStudent });
+    return res
+      .status(200)
+      .json({ message: "Internship applied successfully", updatedStudent });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error unable to process the request' });
+    return res
+      .status(500)
+      .json({ message: "Server error unable to process the request" });
   }
 };
-
 
 export const editSkills = async (req, res) => {
   try {
@@ -46,13 +53,17 @@ export const editSkills = async (req, res) => {
     );
 
     if (!updatedStudent) {
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: "Student not found" });
     }
 
-    return res.status(200).json({ message: 'Skills updated successfully', updatedStudent });
+    return res
+      .status(200)
+      .json({ message: "Skills updated successfully", updatedStudent });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error unable to process the request' });
+    return res
+      .status(500)
+      .json({ message: "Server error unable to process the request" });
   }
 };
 
@@ -67,21 +78,24 @@ export const editBio = async (req, res) => {
     );
 
     if (!updatedStudent) {
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: "Student not found" });
     }
 
-    return res.status(200).json({ message: 'Bio updated successfully', updatedStudent });
+    return res
+      .status(200)
+      .json({ message: "Bio updated successfully", updatedStudent });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error unable to process the request' });
+    return res
+      .status(500)
+      .json({ message: "Server error unable to process the request" });
   }
 };
 
-
-export const getStudentInfo = () => {
+export const getStudentInfo = async () => {
   try {
     const userId = req.body.userId;
-    const student = Student.findById(userId);
+    const student = await Student.findById(userId);
 
     if (!student) {
       res.status(404).json({ message: "Student not found" });
@@ -89,6 +103,8 @@ export const getStudentInfo = () => {
 
     res.status(200).json({ message: "Student data fetched", student });
   } catch (error) {
-    return res.status(500).json({ message: "server error unable to process the request" });
+    return res
+      .status(500)
+      .json({ message: "server error unable to process the request" });
   }
-}
+};

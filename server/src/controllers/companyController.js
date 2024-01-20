@@ -1,6 +1,6 @@
-import Company from "../models/Company.js";
-import Internship from "../models/Internship.js";
-import Student from "../models/Student.js";
+import { Company } from "../models/CompanyModel.js";
+import { Internship } from "../models/internshipModel.js";
+import { Student } from "../models/studentModel.js";
 
 export const acceptOrRejectIntern = async (req, res) => {
   try {
