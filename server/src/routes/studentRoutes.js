@@ -13,4 +13,4 @@ studentRouter.post("/applyForInternship", applyForInternship);
 studentRouter.post("/editBio", editBio);
 studentRouter.post("/editSkills", editSkills);
 
-export default studentRouter
+export default studentRouter;

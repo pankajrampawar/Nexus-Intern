@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const internshipSchema = new mongoose.Schema(
   {
     title: {
@@ -64,7 +65,11 @@ const internshipSchema = new mongoose.Schema(
     status: {
       type: Boolean,      
     },
-    noOfJobsOffered:{
+    locationType: {
+      type: ["On Site", "Remote"],
+      required: true,
+    },
+    studentSelected:{
       type: Number,
       required: true,
     }
