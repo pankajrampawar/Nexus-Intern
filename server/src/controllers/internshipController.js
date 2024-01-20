@@ -90,7 +90,10 @@ export const filterThroughDuration = async (req, res) => {
 
 export const getAllInternships = async (req, res) => {
   try {
-    const internships = await Internship.find();
+  
+    const {internshipId}=req.body;
+     
+    const internships = await Internship.findById(internshipId);
 
     res.status(200).json({ message: "interships fetched", internships });
   } catch (error) {
