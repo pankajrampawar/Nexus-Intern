@@ -35,7 +35,7 @@ const StudentForm = () => {
         formDataWithFile.append(key, formData[key]);
       }
 
-      const response = await studentLogin()
+      const response = await studentLogin(formDataWithFile)
 
       if (response) {
         console.log('Form submitted successfully!');
