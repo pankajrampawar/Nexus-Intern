@@ -64,7 +64,7 @@ export const register = async (req, res) => {
       password,
       phone,
       info,
-      resume: resume.url,
+      resume,
       profileImage: profileImage.url,
     });
 
