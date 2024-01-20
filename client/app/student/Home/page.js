@@ -1,4 +1,5 @@
 import InfoCard from "../ui/InforCard"
+import Image from "next/image"
 
 export default function Home() {
     return (
