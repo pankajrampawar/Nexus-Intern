@@ -2,81 +2,72 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const studentScheme = mongoose.Schema(
-  {
-    fullName: {
-      type: String,
-      required: true,
-    },
-    profileImage: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
-      lowercase: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: Number,
-      required: true,
-    },
-    bio: {
-      type: String,
-      required: true
-    },
-    skills: {
-      type: Array,
-      required: true
-    },
-    college: {
-      type: String,
-      required: true
-    },
-    education: {
-      start: {
-        type: Number,
-        required: true,
-      },
-      end: {
-        type: Number,
-        required: true,
-      }
-    },
-    notification: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "",
-      },
-    ],
-    resume: {
-      type: String,
-      required: true,
-    },
-    refreshToken: {
-      type: String,
-    },
-    applications: [
-      {
-        internship: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Internship"
-        },
-        status: {
-          type: String,
-          enum: ["pending", "accepted", "rejected"],
-          default: "pending"
-        }
-      }
-    ],
+const studentScheme = mongoose.Schema({
+  fullName: {
+    type: String,
+    required: true,
   },
-);
+  profileImage: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+    lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  bio: {
+    type: String,
+    required: true,
+  },
+  skills: {
+    type: Array,
+    required: true,
+  },
+  college: {
+    type: String,
+    required: true,
+  },
+  education: {
+    type: String,
+  },
+  notification: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "",
+    },
+  ],
+  resume: {
+    type: String,
+    required: true,
+  },
+  refreshToken: {
+    type: String,
+  },
+  applications: [
+    {
+      internship: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Internship",
+      },
+      status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending",
+      },
+    },
+  ],
+});
 
 studentScheme.pre("save", async function (next) {
   if (!this.isModified("password")) {

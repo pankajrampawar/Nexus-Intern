@@ -1,5 +1,7 @@
 import express from "express";
 import {
+
+
   applyForInternship,
   editBio,
   editSkills,
@@ -12,5 +14,6 @@ studentRouter.get("StudentInfo", getStudentInfo);
 studentRouter.post("/applyForInternship", applyForInternship);
 studentRouter.post("/editBio", editBio);
 studentRouter.post("/editSkills", editSkills);
+
 
 export default studentRouter;
