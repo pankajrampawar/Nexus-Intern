@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcrypt";
 import { uploadToCloudinary } from "../utils/Cloudinary.js";
 import Cookie from "cookie-parser";
+import { Company } from "../models/CompanyModel.js";
 
 const generateAccessAndRefreshToken = async (studentId) => {
   try {
@@ -19,6 +20,8 @@ const generateAccessAndRefreshToken = async (studentId) => {
     console.log("failed to create token", error.message);
   }
 };
+
+// Student Auth Controllers
 
 export const register = async (req, res) => {
   try {
@@ -94,21 +97,6 @@ export const register = async (req, res) => {
   }
 };
 
-export const companyRegister = async (req, res) => {
-  try {
-    const { companyName, email, password, phone, info } = req.body;
-    if (
-      [companyName, email, password, phone, info].some(
-        (fields) => fields.trim() === ""
-      )
-    ) {
-      throw new ApiError(400, "All fields are required");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -179,14 +167,94 @@ export const logout = async (req, res) => {
     });
 };
 
+// Company Auth Controllers
+
+export const companyRegister = async (req, res) => {
+  try {
+    const {
+      companyName,
+      logo,
+      website,
+      location,
+      employees,
+      description,
+      sector,
+      jobRoles,
+      avgSalary,
+    } = req.body;
+    console.log(companyName, email, password, phone, info);
+    if (
+      [companyName, email, password, phone, info].some(
+        (fields) => fields.trim() === ""
+      )
+    ) {
+      throw new ApiError(400, "All fields are required");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const companyLogin = async (req, res) => {
   try {
-    const { companyName, title } = req.body;
-  } catch (error) {}
+    const { email, password } = req.body;
+
+    if ([email, password].some((fields) => fields.trim() === "")) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    const company = await Company.findById({ email }).select("-refreshToken");
+
+    if (!company) {
+      throw new ApiError(404, "Company not found");
+    }
+
+    const passwordMatch = await company.matchPassword(password);
+
+    if (!passwordMatch) {
+      throw new ApiError(400, "Incorrect Password");
+    }
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      company._id
+    );
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        message: "Login Successfull",
+        data: {
+          company,
+          accessToken,
+          refreshToken,
+        },
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const companyLogout = async (req, res) => {
   try {
-    const { companyName, title } = req.body;
-  } catch (error) {}
+    Company.findByIdAndUpdate(
+      req.company._id,
+      {
+        $unset: {
+          refreshToken: 1,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
 };
