@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 const studentScheme = mongoose.Schema(
   {
     fullName: {
@@ -61,8 +62,13 @@ const studentScheme = mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Intership"
+      }
+    ]
   },
-  { timestamps: true }
 );
 
 studentScheme.pre("save", async function (next) {
