@@ -1,22 +1,22 @@
-'use client'
-import { useState } from 'react';
-import clsx from 'clsx';
-import { studentLogin } from '@/app/action.js'
+"use client";
+import { useState } from "react";
+import clsx from "clsx";
+import { studentLogin } from "@/app/action.js";
 const StudentForm = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    fullName: "",
     profileImage: null,
-    email: '',
-    password: '',
-    phone: '',
-    bio: '',
-    skill:'',
-    resume: '',
+    email: "",
+    password: "",
+    phone: "",
+    bio: "",
+    skill: "",
+    resume: "",
   });
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-    const newValue = type === 'file' ? e.target.files[0] : value;
+    const newValue = type === "file" ? e.target.files[0] : value;
 
     setFormData((prevData) => ({ ...prevData, [name]: newValue }));
   };
@@ -31,16 +31,15 @@ const StudentForm = () => {
         formDataWithFile.append(key, formData[key]);
       }
 
-      const response = await studentLogin(formDataWithFile)
+      const response = await studentLogin(formDataWithFile);
 
       if (response) {
-        console.log('Form submitted successfully!');
-        
+        console.log("Form submitted successfully!");
       } else {
-        console.error('Failed to submit form');
+        console.error("Failed to submit form");
       }
     } catch (error) {
-      console.error('Error submitting form', error);
+      console.error("Error submitting form", error);
     }
   };
 
@@ -48,11 +47,11 @@ const StudentForm = () => {
 
   const handlePageChange = (prop) => {
     if (prop === "sum") {
-      setPageNumber((prev) => prev+1 );
+      setPageNumber((prev) => prev + 1);
     } else if (prop === "minus") {
-      setPageNumber((prev) => prev-1);
+      setPageNumber((prev) => prev - 1);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -60,12 +59,15 @@ const StudentForm = () => {
         className={`bg-primary shadow-md  px-8 pt-6 pb-8 mb-4 w-full max-w-lg rounded-2xl`}
         onSubmit={handleSubmit}
       >
-        <div className={clsx("mb-4",
-          {
-            "hidden" : pageNumber !== 1
-          }
-        )}>
-          <label htmlFor="fullName" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 1,
+          })}
+        >
+          <label
+            htmlFor="fullName"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Full Name:
           </label>
           <input
@@ -79,12 +81,15 @@ const StudentForm = () => {
           />
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 1
-          }
-        )}>
-          <label htmlFor="profileImage" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 1,
+          })}
+        >
+          <label
+            htmlFor="profileImage"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Profile Image:
           </label>
           <input
@@ -98,12 +103,15 @@ const StudentForm = () => {
           />
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 1
-          }
-        )}>
-          <label htmlFor="email" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 1,
+          })}
+        >
+          <label
+            htmlFor="email"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Email:
           </label>
           <input
@@ -117,12 +125,15 @@ const StudentForm = () => {
           />
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 2
-          }
-        )}>
-          <label htmlFor="password" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 2,
+          })}
+        >
+          <label
+            htmlFor="password"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Password
           </label>
           <input
@@ -136,12 +147,15 @@ const StudentForm = () => {
           />
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 2
-          }
-        )}>
-          <label htmlFor="phone" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 2,
+          })}
+        >
+          <label
+            htmlFor="phone"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Phone
           </label>
           <input
@@ -155,12 +169,15 @@ const StudentForm = () => {
           />
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 2
-          }
-        )}>
-          <label htmlFor="bio" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 2,
+          })}
+        >
+          <label
+            htmlFor="bio"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Bio
           </label>
           <input
@@ -173,13 +190,16 @@ const StudentForm = () => {
             required
           />
         </div>
-        
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 3
-          }
-        )}>
-          <label htmlFor="skill" className="block text-white text-sm font-bold mb-2">
+
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 3,
+          })}
+        >
+          <label
+            htmlFor="skill"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Skill
           </label>
           <input
@@ -193,14 +213,18 @@ const StudentForm = () => {
           />
         </div>
 
-         <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 3
-          }
-        )}>
-          <label htmlFor="college" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 3,
+          })}
+        >
+          <label
+            htmlFor="college"
+            className="block text-white text-sm font-bold mb-2"
+          >
             College
           </label>
+
           <input
             type="text"
             id="college"
@@ -210,14 +234,18 @@ const StudentForm = () => {
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
           />
+          {formData.college}
         </div>
 
-        <div className={clsx("mb-4",
-          {
-            'hidden' : pageNumber !== 3
-          }
-        )}>
-          <label htmlFor="resume" className="block text-white text-sm font-bold mb-2">
+        <div
+          className={clsx("mb-4", {
+            hidden: pageNumber !== 3,
+          })}
+        >
+          <label
+            htmlFor="resume"
+            className="block text-white text-sm font-bold mb-2"
+          >
             Resume URL
           </label>
           <input
@@ -233,33 +261,40 @@ const StudentForm = () => {
 
         <button
           type="button"
-          className={clsx("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
+          className={clsx(
+            "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
             {
-              'hidden' : pageNumber === 3
+              hidden: pageNumber === 3,
             }
           )}
-          onClick={()=>{handlePageChange("sum")}}
+          onClick={() => {
+            handlePageChange("sum");
+          }}
         >
           Next
         </button>
 
         <button
           type="button"
-          className={clsx("bg-blue-500 m-1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
+          className={clsx(
+            "bg-blue-500 m-1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
             {
-              'hidden' : pageNumber === 1
+              hidden: pageNumber === 1,
             }
           )}
-          onClick={()=>{handlePageChange("minus")}}
+          onClick={() => {
+            handlePageChange("minus");
+          }}
         >
           Back
         </button>
 
         <button
           type="submit"
-          className={clsx("bg-blue-500 mt-2  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
+          className={clsx(
+            "bg-blue-500 mt-2  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline",
             {
-              'hidden' : pageNumber !== 3
+              hidden: pageNumber !== 3,
             }
           )}
         >
