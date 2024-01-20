@@ -33,6 +33,14 @@ const companySchema = mongoose.Schema(
         required: true,
       },
     ],
+    sector: {
+      type: String,
+      required: true,
+    },
+    jobRoles: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
