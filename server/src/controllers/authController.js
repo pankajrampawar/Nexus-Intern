@@ -1,6 +1,7 @@
 import { Student } from "../models/studentModel.js";
 import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcrypt";
+import { uploadToCloudinary } from "../utils/Cloudinary.js";
 
 const generateAccessAndRefreshToken = async (studentId) => {
   try {
@@ -55,29 +56,31 @@ export const register = async (req, res) => {
     if (!resumeLocalPath) {
       throw new ApiError(400, "Resume is required");
     }
-    
-    const hashedPassword = await bcrypt.hash(password, 10);
+   
  
     const newStudent=await Student.create({
       fullName,
       email,
-      password: hashedPassword,
+      password,
       phone,
       info,
-      profileImage: profileImageLocalPath,
-      resume: resumeLocalPath,
+      resume: resume.url,
+      profileImage: profileImage.url,
     });
 
+    const registedStudent = await Student.findById(newStudent._id).select(
+      "-password -refershToken"
+    );
     const refreshToken = await generateAccessAndRefreshToken(newStudent._id);
-    
+
     res.status(201).json({
+      success: true,
       message: "Student registered successfully",
       data: {
-        student: newStudent,
+        student: registedStudent,
         refreshToken,
       },
     });
-
 
   } catch (error) {
     console.log(error);
