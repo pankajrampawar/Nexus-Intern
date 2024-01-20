@@ -14,7 +14,7 @@ const authRouter = express.Router();
 //student routes
 authRouter.post(
   "/student/register",
-  upload.fields(
+  upload.fields([
     {
       name: "resume",
       maxCount: 1,
@@ -22,8 +22,8 @@ authRouter.post(
     {
       name: "ProfileImage",
       maxCount: 1,
-    }
-  ),
+    },
+  ]),
   register
 );
 
