@@ -6,28 +6,18 @@ export const addInternship = async (req, res) => {
       title,
       description,
       company,
+      companySector,
       location,
       stipend,
-      skills,
       applyBy,
       duration,
-      time,
+      skills,
       type,
       status,
       locationType,
     } = req.body;
-    console.log(
-      title,
-      description,
-      company,
-      location,
-      time,
-      type,
-      locationType,
-      status
-    );
     if (
-      [title, description, company, location, time, type, locationType].some(
+      [title, description, company, location,companySector,type, locationType].some(
         (field) => field.trim() === ""
       )
     ) {
@@ -37,12 +27,12 @@ export const addInternship = async (req, res) => {
       title,
       description,
       company,
+      companySector,
       location,
       stipend,
-      skills,
       applyBy,
       duration,
-      time,
+      skills,
       type,
       status,
       locationType,

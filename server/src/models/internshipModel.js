@@ -15,6 +15,10 @@ const internshipSchema = new mongoose.Schema(
       ref: "Company",
       required: true,
     },
+    companySector: {
+       type: String,
+       required: true,
+    },
     location: {
       type: String,
       required: true,
@@ -24,15 +28,12 @@ const internshipSchema = new mongoose.Schema(
       required: true,
     },
     applyBy: {
-      type: Date,
+      type: String,
       required: true,
     },
     duration: {
       type: Number,
       required: true,
-    },
-    time: {
-      type: Date,
     },
     skills: [
       {

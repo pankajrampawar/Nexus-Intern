@@ -194,14 +194,14 @@ export const companyLogin = async (req, res) => {
       throw new ApiError(400, "All fields are required");
     }
 
-    const company = await Company.findById({ email }).select("-refreshToken");
+    const company = await Company.find({ email }).select("-refreshToken");
 
     if (!company) {
       throw new ApiError(404, "Company not found");
     }
-
-    const passwordMatch = await company.matchPassword(password);
-
+    console.log(company, password);
+    const passwordMatch = password === company.password ? true : false;
+    console.log(passwordMatch);
     if (!passwordMatch) {
       throw new ApiError(400, "Incorrect Password");
     }

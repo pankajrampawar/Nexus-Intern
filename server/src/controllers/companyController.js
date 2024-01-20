@@ -41,9 +41,9 @@ export const acceptOrRejectIntern = async (req, res) => {
 
 export const getApplicantsForInternship=async (req, res) => {
   try {
+
     const { internshipId, companyId } = req.body;
 
-    
     if (!internshipId || !companyId) {
       return res.status(400).json({ error: 'Both internshipId and companyId are required' });
     }
@@ -65,4 +65,16 @@ export const getApplicantsForInternship=async (req, res) => {
     console.error('Error:', error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
+
 };
+
+export const getAcceptedStudents=async (req,res)=>{
+
+   try{
+    
+   }catch(error){
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+   }
+
+}
