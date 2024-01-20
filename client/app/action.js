@@ -34,7 +34,7 @@ export const getUserInfo = async (id) => {
     });
 
     console.log(response.data)
-    return (response.data);
+    return (response.data.student);
   } catch (error) {
     alert('unable to get the user info');
     console.log(error)
