@@ -2,14 +2,16 @@ export const navList = [
     {
         name: "Home",
         img: "/home.svg",
+        link: "Home"
     },
     {
         name: "Profile",
         img: "/profile.svg",
+        link: "Profile"
     },
     {
-        name: "Internships",
-        img: "/editLocation.svg",
+        name: "Notifications",
+        img: "/bell.svg",
     },
     {
         name: 'Filters',
