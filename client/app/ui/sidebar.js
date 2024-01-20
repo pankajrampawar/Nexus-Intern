@@ -10,6 +10,7 @@ export default function Sidebar() {
     const router = useRouter();
     
     const [isFilterClicked, setIsFilterCLicked] = React.useState(false);
+    const [isNotificationClicked, setIsNotificationClicked] = React.useState(false);
 
     const handleNavigation = (link) => {
         router.push(link)    
@@ -17,7 +18,10 @@ export default function Sidebar() {
     const handleClick = (name) => {
         if(name === 'Filters') {
             setIsFilterCLicked((prev) => !prev);
-            console.log("Filter clicked")
+            console.log("Filter clicked");
+        } else {
+            setIsNotificationClicked((prev)=> !prev);
+            console.log("notfication Clicked");
         }
     }
 
@@ -69,6 +73,10 @@ export default function Sidebar() {
                 <div className='absolute left-32 -translate-y-1/2 shadow-2xl z-40 rounded-3xl'>
                     <FilterCard/>
                 </div>
+            }
+
+            {
+                isNotificationClicked && <div></div>
             }
         </main>
     )

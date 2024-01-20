@@ -29,15 +29,15 @@ export default function FilterCard() {
         <main className='bg-primary text-start max-w-[350px] min-w-[300px] p-5 rounded-3xl flex flex-col gap-4 '>
                 <div className='flex flex-col gap-2'>
                     <h1 className='font-bold text-xl'>Stipend</h1>
-                    <div className='text-black flex justify-evenly'>
-                        <select id="lower" value={stipend.lower} onChange={changeStipend}>
+                    <div className='flex justify-evenly'>
+                        <select id="lower" value={stipend.lower} onChange={changeStipend} className='bg-on-primary p-1 rounded-xl'>
                             <option value={0}>0</option>
                             <option value={1000}>1000</option>
                             <option value={5000}>5000</option>
                             <option value={10000}>10000</option>
                         </select>
 
-                        <select id='upper' value={stipend.upper} onChange={changeStipend}>
+                        <select id='upper' value={stipend.upper} onChange={changeStipend} className='bg-on-primary rounded-xl p-1'>
                             <option value={1000}>1000</option>
                             <option value={5000}>5000</option>
                             <option value={10000}>10000</option>
@@ -65,7 +65,7 @@ export default function FilterCard() {
                     </div>
                 </div>
 
-                <div className='flex justify-evenly text-xl font-semibold tracking-wider'>
+                <div className='flex justify-evenly text-base font-semibold tracking-wider'>
                     <div>Save</div>
                     <div>Discard</div>
                 </div>
