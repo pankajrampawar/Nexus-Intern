@@ -120,7 +120,15 @@ export const login = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {};
+
 export const companyLogin = async (req, res) => {
+  try {
+    const { companyName, title } = req.body;
+  } catch (error) {}
+};
+
+export const companyLogout = async (req, res) => {
   try {
     const { companyName, title } = req.body;
   } catch (error) {}
