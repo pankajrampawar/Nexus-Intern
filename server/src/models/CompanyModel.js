@@ -50,10 +50,12 @@ const companySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    jobRoles: {
-      type: String,
-      required: true,
-    },
+    jobRoles: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     avgSalary: {
       type: Number,
       required: true,

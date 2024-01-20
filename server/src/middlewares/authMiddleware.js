@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Student } from "../models/studentModel.js";
 import { Company } from "../models/CompanyModel.js";
 import ApiError from "../utils/ApiError.js";
-const verifyStudentToken = async (req, _, next) => {
+export const verifyStudentToken = async (req, _, next) => {
   try {
     const token =
       req.cookies?.accessToken ||
@@ -30,7 +30,7 @@ const verifyStudentToken = async (req, _, next) => {
   }
 };
 
-const verifyCompanyToken = async (req, _, next) => {
+export const verifyCompanyToken = async (req, _, next) => {
   const token = req.headers["x-access-token"];
   if (!token) {
     throw new ApiError(401, "Token not found");
@@ -44,5 +44,3 @@ const verifyCompanyToken = async (req, _, next) => {
     throw new ApiError(401, "Token not valid");
   }
 };
-
-export default verifyStudentToken;

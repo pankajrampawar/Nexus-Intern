@@ -8,7 +8,7 @@ import {
   companyLogout,
 } from "../controllers/authController.js";
 import { upload } from "../middlewares/multerMiddleware.js";
-import verifyStudentToken from "../middlewares/authMiddleware.js";
+import { verifyStudentToken } from "../middlewares/authMiddleware.js";
 
 const authRouter = express.Router();
 //student routes
@@ -29,6 +29,10 @@ authRouter.post(
 
 authRouter.post("/student/login", login);
 authRouter.post("/student/logout", verifyStudentToken, logout);
+
+//students feature's routes
+
+authRouter.post("/student/removeNotification", verifyStudentToken);
 
 //company routes
 
