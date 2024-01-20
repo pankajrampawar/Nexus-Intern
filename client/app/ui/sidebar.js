@@ -31,7 +31,7 @@ export default function Sidebar() {
         <main className='bg-primary text-white max-w-[100px] text-center h-full rounded-2xl p-3 pr-3 '>
             <header className='mt-5 w-full flex justify-center'>
                 <div>
-                    Samarho Sarthi
+                    Nexus-Intern
                 </div>
             </header>
             <section className='mt-10'>
