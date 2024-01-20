@@ -40,50 +40,37 @@ export default function Home() {
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Technology</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
                         <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Banking</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
                         <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
+
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Civil</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
                         <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
+
+
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Automobile</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
                         <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
+
+
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">FMCG</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
                         <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon adfaewch adsjhcap iudcqpw cqwiehcpwiqeuhcc sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
-                        <InfoCard title="something title" details="asjfpaoif asdfapif asndfflkn awfiwef ns dfffn fjenfnfsdkfjon sdkfnk" stipend="3000" time="3"/>
+
+
                     </div>
                 </div>
                 
