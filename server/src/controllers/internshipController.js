@@ -12,12 +12,11 @@ export const addInternship = async (req, res) => {
       applyBy,
       duration,
       skills,
-      type,
       status,
       locationType,
     } = req.body;
     if (
-      [title, description, company, location,companySector,type, locationType].some(
+      [title, description, company, location,companySector,locationType].some(
         (field) => field.trim() === ""
       )
     ) {
