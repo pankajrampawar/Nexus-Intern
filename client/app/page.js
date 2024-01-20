@@ -48,7 +48,7 @@ const StudentForm = () => {
     }
   };
 
-  const [pageNumber, setPageNumber] = useState(3);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handlePageChange = (prop) => {
     if (prop === "sum") {
