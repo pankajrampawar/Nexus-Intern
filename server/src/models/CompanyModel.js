@@ -26,17 +26,16 @@ const companySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    internshipsOpen: {
+    internshipsOffered: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Internship",
       required: true,
-    },
-    branches: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    }],
+    internshipsOfferingCurrently:[{
+       type: mongoose.Schema.Types.ObjectId,
+       ref: "Internship",
+       required: true
+    }],
     sector: {
       type: String,
       required: true,
@@ -45,6 +44,10 @@ const companySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    avgSalary: {
+      type: Number,
+      required: true,
+    }
   },
   { timestamps: true }
 );
