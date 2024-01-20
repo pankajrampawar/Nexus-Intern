@@ -26,11 +26,14 @@ const studentScheme = mongoose.Schema(
       type: Number,
       required: true,
     },
-    info: [
-      {
-        type: String,
-      },
-    ],
+    bio: {
+      type: String,
+      required: true
+    },
+    skills: {
+      type: Array,
+      required: true
+    },
     notification: [
       {
         type: mongoose.Schema.Types.ObjectId,
