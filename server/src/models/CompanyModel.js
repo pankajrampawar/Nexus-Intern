@@ -22,6 +22,17 @@ const companySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    internshipsOpen: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Internship",
+      required: true,
+    },
+    branches: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
   { timestamps: true }
 );
