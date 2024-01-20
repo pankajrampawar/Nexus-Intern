@@ -2,6 +2,21 @@ import { Student } from "../models/studentModel.js";
 import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcrypt";
 
+const generateAccessAndRefreshToken = async (studentId) => {
+  try {
+    const student = await Student.findById(studentId);
+    if (!student) {
+      throw new ApiError(404, "Student not found");
+    }
+    const accessToken = student.genrateAccessToken();
+    const refreshToken = student.generateRefreshToken();
+    this.refreshToken = refreshToken;
+    await student.save({ validBeforeSave: false });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const register = async (req, res) => {
   try {
     const { fullName, email, password, phone, info } = req.body;
