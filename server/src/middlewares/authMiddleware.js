@@ -31,16 +31,28 @@ export const verifyStudentToken = async (req, _, next) => {
 };
 
 export const verifyCompanyToken = async (req, _, next) => {
-  const token = req.headers["x-access-token"];
-  if (!token) {
-    throw new ApiError(401, "Token not found");
-  }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const company = await Company.findById(decoded.id);
+    const token =
+      req.cookies?.accessToken ||
+      req.header("Authorization")?.replace("Bearer ", "");
+
+    // console.log(token);
+    if (!token) {
+      throw new ApiError(401, "Unauthorized request");
+    }
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+    const company = await Company.findById(decodedToken?.id).select(
+      "-password -refreshToken"
+    );
+
+    if (!company) {
+      throw new ApiError(401, "Invalid Access Token");
+    }
     req.company = company;
     next();
   } catch (error) {
-    throw new ApiError(401, "Token not valid");
+    throw new ApiError(401, error?.message, error || "Invalid access token");
   }
 };
