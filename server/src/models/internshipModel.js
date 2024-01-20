@@ -45,26 +45,29 @@ const internshipSchema = new mongoose.Schema(
     },
     applicants: [
       {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Student"
       },
     ],
     selected: [
       {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Student"
       },
     ],
     rejected: [
       {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Student"
       },
     ],
     status: {
-      type: String,
-      required: true,
+      type: Boolean,      
     },
+    noOfJobsOffered:{
+      type: Number,
+      required: true,
+    }
   },
   { timestamps: true }
 );
