@@ -1,11 +1,11 @@
 import { Internship } from "../models/internshipModel.js";
-
+import ApiError from "../utils/ApiError.js";
 export const addInternship = async (req, res) => {
   try {
+    console.log(req.company);
     const {
       title,
       description,
-      company,
       companySector,
       location,
       stipend,
@@ -15,24 +15,31 @@ export const addInternship = async (req, res) => {
       status,
       locationType,
     } = req.body;
-    if (
-      [title, description, company, location,companySector,locationType].some(
-        (field) => field.trim() === ""
-      )
-    ) {
-      throw new ApiError(400, "All fields are required");
-    }
-    const internship = await Internship.create({
+    console.log(
       title,
       description,
-      company,
       companySector,
       location,
       stipend,
       applyBy,
       duration,
       skills,
-      type,
+      status,
+      locationType
+    );
+    if (!title || !description || !location || !companySector) {
+      throw new ApiError(400, "All fields are required");
+    }
+    const internship = await Internship.create({
+      title,
+      description,
+      company: req.company._id,
+      companySector,
+      location,
+      stipend,
+      applyBy,
+      duration,
+      skills,
       status,
       locationType,
     });

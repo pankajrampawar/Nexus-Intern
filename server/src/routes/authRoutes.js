@@ -8,17 +8,16 @@ import {
   companyLogout,
 } from "../controllers/authController.js";
 import { upload } from "../middlewares/multerMiddleware.js";
-import { verifyStudentToken } from "../middlewares/authMiddleware.js";
+import {
+  verifyCompanyToken,
+  verifyStudentToken,
+} from "../middlewares/authMiddleware.js";
 
 const authRouter = express.Router();
 //student routes
 authRouter.post(
   "/student/register",
   upload.fields([
-    {
-      name: "resume",
-      maxCount: 1,
-    },
     {
       name: "profileImage",
       maxCount: 1,
@@ -38,6 +37,6 @@ authRouter.post("/student/removeNotification", verifyStudentToken);
 
 authRouter.post("/company/register", companyRegister);
 authRouter.post("/company/login", companyLogin);
-authRouter.post("/company/logout", companyLogout);
+authRouter.post("/company/logout", verifyCompanyToken, companyLogout);
 
 export default authRouter;
