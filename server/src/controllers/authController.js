@@ -21,6 +21,7 @@ const generateAccessAndRefreshToken = async (studentId) => {
 export const register = async (req, res) => {
   try {
     const { fullName, email, password, phone, info } = req.body;
+    console.log(fullName, email, password, phone, info);
     if (
       [fullName, email, password, phone, info].some(
         (fields) => fields.trim() === ""
@@ -56,13 +57,13 @@ export const register = async (req, res) => {
     if (!resumeLocalPath) {
       throw new ApiError(400, "Resume is required");
     }
-    console.log(resumeLocalPath,profileImageLocalPath);
-    const resume=await uploadToCloudinary(resumeLocalPath);
-    const profileImage=await uploadToCloudinary(profileImageLocalPath);
-    console.log(resume,profileImage);
-    
- 
-    const newStudent=await Student.create({
+    console.log(resumeLocalPath, profileImageLocalPath);
+    const resume = await uploadToCloudinary(resumeLocalPath);
+
+    const profileImage = await uploadToCloudinary(profileImageLocalPath);
+    console.log(resume, profileImage);
+
+    const newStudent = await Student.create({
       fullName,
       email,
       password,
@@ -85,7 +86,6 @@ export const register = async (req, res) => {
         refreshToken,
       },
     });
-
   } catch (error) {
     console.log(error);
   }
@@ -112,16 +112,21 @@ export const login = async (req, res) => {
     if ([email, password].some((fields) => fields.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
-    const existingStudent=await Student.findOne({email});
-    if(!existingStudent){
-      throw new ApiError(404,"Student not found");
+    const existingStudent = await Student.findOne({ email });
+    if (!existingStudent) {
+      throw new ApiError(404, "Student not found");
     }
-    const passwordMatch=await bcrypt.compare(password,existingStudent.password);
-    if(!passwordMatch){
-      throw new ApiError(400,"Incorrect Password");
+    const passwordMatch = await bcrypt.compare(
+      password,
+      existingStudent.password
+    );
+    if (!passwordMatch) {
+      throw new ApiError(400, "Incorrect Password");
     }
-    const refreshToken = await generateAccessAndRefreshToken(existingStudent._id);
-    
+    const refreshToken = await generateAccessAndRefreshToken(
+      existingStudent._id
+    );
+
     res.status(201).json({
       message: "Login Successfull",
       data: {
@@ -129,9 +134,6 @@ export const login = async (req, res) => {
         refreshToken,
       },
     });
-
-    
-
   } catch (error) {
     console.log(error);
   }

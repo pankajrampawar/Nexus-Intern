@@ -37,7 +37,6 @@ const studentScheme = mongoose.Schema(
     },
     refreshToken: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
