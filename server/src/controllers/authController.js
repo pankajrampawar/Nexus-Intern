@@ -11,10 +11,11 @@ const generateAccessAndRefreshToken = async (studentId) => {
     }
     const accessToken = student.genrateAccessToken();
     const refreshToken = student.generateRefreshToken();
-    this.refreshToken = refreshToken;
+    student.refreshToken = refreshToken;
     await student.save({ validBeforeSave: false });
+    return accessToken;
   } catch (error) {
-    console.log(error.message);
+    console.log("failed to create token", error.message);
   }
 };
 
@@ -76,14 +77,14 @@ export const register = async (req, res) => {
     const registedStudent = await Student.findById(newStudent._id).select(
       "-password -refershToken"
     );
-    const refreshToken = await generateAccessAndRefreshToken(newStudent._id);
+    const { accessToken } = await generateAccessAndRefreshToken(newStudent._id);
 
     res.status(201).json({
       success: true,
       message: "Student registered successfully",
       data: {
         student: registedStudent,
-        refreshToken,
+        accessToken,
       },
     });
   } catch (error) {
@@ -112,18 +113,17 @@ export const login = async (req, res) => {
     if ([email, password].some((fields) => fields.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
-    const existingStudent = await Student.findOne({ email });
+    const existingStudent = await Student.findOne({ email }).select(
+      "-refreshToken"
+    );
     if (!existingStudent) {
       throw new ApiError(404, "Student not found");
     }
-    const passwordMatch = await bcrypt.compare(
-      password,
-      existingStudent.password
-    );
+    const passwordMatch = existingStudent.matchPassword(password);
     if (!passwordMatch) {
       throw new ApiError(400, "Incorrect Password");
     }
-    const refreshToken = await generateAccessAndRefreshToken(
+    const accessToken = await generateAccessAndRefreshToken(
       existingStudent._id
     );
 
@@ -131,7 +131,7 @@ export const login = async (req, res) => {
       message: "Login Successfull",
       data: {
         student: existingStudent,
-        refreshToken,
+        accessToken,
       },
     });
   } catch (error) {

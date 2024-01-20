@@ -54,6 +54,12 @@ studentScheme.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 studentScheme.methods.genrateAccessToken = function () {
+  console.log(
+    process.env.JWT_SECRET,
+    process.env.JWT_EXPIRE,
+    process.env.JWT_REFRESH_SECRET,
+    process.env.JWT_REFRESH_EXPIRE
+  );
   return jwt.sign(
     { id: this._id, fullName: this.fullName, email: this.email },
     process.env.JWT_SECRET,
