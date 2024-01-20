@@ -55,6 +55,7 @@ export const register = async (req, res) => {
     if (!resumeLocalPath) {
       throw new ApiError(400, "Resume is required");
     }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
  
     const newStudent=await Student.create({
@@ -77,6 +78,7 @@ export const register = async (req, res) => {
       },
     });
 
+
   } catch (error) {
     console.log(error);
   }
@@ -88,6 +90,8 @@ export const login = async (req, res) => {
     if ([email, password].some((fields) => fields.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
+    
+
   } catch (error) {
     console.log(error);
   }
