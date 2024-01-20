@@ -5,6 +5,7 @@ import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
 import internshipRouter from "./routes/internshipRoutes.js";
 import cookieParser from "cookie-parser";
+import companyRouter from "./routes/companyRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -22,5 +23,8 @@ app.use("/api/auth", authRouter);
 
 //internship Routes
 app.use("/api/internships", internshipRouter);
+
+//company Routes
+app.use("/api/company", companyRouter);
 
 export default app;

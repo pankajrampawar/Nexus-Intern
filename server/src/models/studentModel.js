@@ -31,6 +31,12 @@ const studentScheme = mongoose.Schema(
         type: String,
       },
     ],
+    notification: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "",
+      },
+    ],
     resume: {
       type: String,
       required: true,
