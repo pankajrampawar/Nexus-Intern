@@ -34,6 +34,20 @@ const studentScheme = mongoose.Schema(
       type: Array,
       required: true
     },
+    college: {
+      type: String,
+      required: true
+    },
+    education: {
+      start: {
+        type: Number,
+        required: true,
+      },
+      end: {
+        type: Number,
+        required: true,
+      }
+    },
     notification: [
       {
         type: mongoose.Schema.Types.ObjectId,
