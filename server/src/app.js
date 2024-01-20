@@ -4,12 +4,14 @@ import express from "express";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
 import internshipRouter from "./routes/internshipRoutes.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

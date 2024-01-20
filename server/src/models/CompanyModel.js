@@ -2,11 +2,19 @@ import mongoose from "mongoose";
 
 const companySchema = mongoose.Schema(
   {
-    name: {
+    companyName: {
       type: String,
       required: true,
     },
     logo: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
       type: String,
       required: true,
     },
@@ -19,22 +27,23 @@ const companySchema = mongoose.Schema(
       required: true,
     },
     employees: {
-       type: Number,
-       required: true,
+      type: Number,
+      required: true,
     },
     description: {
       type: String,
       required: true,
     },
-    internshipsOpen: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Internship",
-      required: true,
-    },
-    branches: [
+    internshipsOffered: [
       {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Internship",
+      },
+    ],
+    internshipsOfferingCurrently: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Internship",
       },
     ],
     sector: {
@@ -44,6 +53,13 @@ const companySchema = mongoose.Schema(
     jobRoles: {
       type: String,
       required: true,
+    },
+    avgSalary: {
+      type: Number,
+      required: true,
+    },
+    refreshToken: {
+      type: String,
     },
   },
   { timestamps: true }

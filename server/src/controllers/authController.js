@@ -2,6 +2,8 @@ import { Student } from "../models/studentModel.js";
 import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcrypt";
 import { uploadToCloudinary } from "../utils/Cloudinary.js";
+import Cookie from "cookie-parser";
+import { Company } from "../models/CompanyModel.js";
 
 const generateAccessAndRefreshToken = async (studentId) => {
   try {
@@ -11,12 +13,15 @@ const generateAccessAndRefreshToken = async (studentId) => {
     }
     const accessToken = student.genrateAccessToken();
     const refreshToken = student.generateRefreshToken();
-    this.refreshToken = refreshToken;
+    student.refreshToken = refreshToken;
     await student.save({ validBeforeSave: false });
+    return { accessToken, refreshToken };
   } catch (error) {
-    console.log(error.message);
+    console.log("failed to create token", error.message);
   }
 };
+
+// Student Auth Controllers
 
 export const register = async (req, res) => {
   try {
@@ -61,7 +66,6 @@ export const register = async (req, res) => {
     const resume = await uploadToCloudinary(resumeLocalPath);
 
     const profileImage = await uploadToCloudinary(profileImageLocalPath);
-    console.log(resume, profileImage);
 
     const newStudent = await Student.create({
       fullName,
@@ -76,14 +80,16 @@ export const register = async (req, res) => {
     const registedStudent = await Student.findById(newStudent._id).select(
       "-password -refershToken"
     );
-    const refreshToken = await generateAccessAndRefreshToken(newStudent._id);
 
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
     res.status(201).json({
       success: true,
       message: "Student registered successfully",
       data: {
         student: registedStudent,
-        refreshToken,
       },
     });
   } catch (error) {
@@ -91,9 +97,92 @@ export const register = async (req, res) => {
   }
 };
 
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if ([email, password].some((fields) => fields.trim() === "")) {
+      throw new ApiError(400, "All fields are required");
+    }
+    const existingStudent = await Student.findOne({ email }).select(
+      "-refreshToken"
+    );
+    if (!existingStudent) {
+      throw new ApiError(404, "Student not found");
+    }
+    const passwordMatch = existingStudent.matchPassword(password);
+    if (!passwordMatch) {
+      throw new ApiError(400, "Incorrect Password");
+    }
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      existingStudent._id
+    );
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        message: "Login Successfull",
+        data: {
+          student: existingStudent,
+          accessToken,
+          refreshToken,
+        },
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const logout = async (req, res) => {
+  await Student.findByIdAndUpdate(
+    req.student._id,
+    {
+      $unset: {
+        refreshToken: 1, // this removes the field from document
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json({
+      success: true,
+      data: {},
+      message: "User logged Out",
+    });
+};
+
+// Company Auth Controllers
+
 export const companyRegister = async (req, res) => {
   try {
-    const { companyName, email, password, phone, info } = req.body;
+    const {
+      companyName,
+      logo,
+      website,
+      location,
+      employees,
+      description,
+      sector,
+      jobRoles,
+      avgSalary,
+    } = req.body;
+    console.log(companyName, email, password, phone, info);
     if (
       [companyName, email, password, phone, info].some(
         (fields) => fields.trim() === ""
@@ -106,49 +195,66 @@ export const companyRegister = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const companyLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     if ([email, password].some((fields) => fields.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
-    const existingStudent = await Student.findOne({ email });
-    if (!existingStudent) {
-      throw new ApiError(404, "Student not found");
+
+    const company = await Company.findById({ email }).select("-refreshToken");
+
+    if (!company) {
+      throw new ApiError(404, "Company not found");
     }
-    const passwordMatch = await bcrypt.compare(
-      password,
-      existingStudent.password
-    );
+
+    const passwordMatch = await company.matchPassword(password);
+
     if (!passwordMatch) {
       throw new ApiError(400, "Incorrect Password");
     }
-    const refreshToken = await generateAccessAndRefreshToken(
-      existingStudent._id
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      company._id
     );
 
-    res.status(201).json({
-      message: "Login Successfull",
-      data: {
-        student: existingStudent,
-        refreshToken,
-      },
-    });
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        message: "Login Successfull",
+        data: {
+          company,
+          accessToken,
+          refreshToken,
+        },
+      });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const logout = async (req, res) => {};
-
-export const companyLogin = async (req, res) => {
-  try {
-    const { companyName, title } = req.body;
-  } catch (error) {}
-};
-
 export const companyLogout = async (req, res) => {
   try {
-    const { companyName, title } = req.body;
-  } catch (error) {}
+    Company.findByIdAndUpdate(
+      req.company._id,
+      {
+        $unset: {
+          refreshToken: 1,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
 };
