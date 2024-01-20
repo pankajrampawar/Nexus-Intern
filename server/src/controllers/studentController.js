@@ -1,5 +1,5 @@
-import { Student } from 'path-to-your-student-model';
-import { Internship } from 'path-to-your-internship-model';
+import { Student } from  '../models/studentModel';
+import { Internship } from '../models/internshipModel';
 
 export const applyForInternship = async (req, res) => {
   try {
@@ -78,10 +78,10 @@ export const editBio = async (req, res) => {
 };
 
 
-export const getStudentInfo = () => {
+export const getStudentInfo = async () => {
   try {
     const userId = req.body.userId;
-    const student = Student.findById(userId);
+    const student = await Student.findById(userId);
 
     if (!student) {
       res.status(404).json({ message: "Student not found" });
