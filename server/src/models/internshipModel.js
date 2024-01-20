@@ -15,6 +15,11 @@ const internshipSchema = new mongoose.Schema(
       ref: "Company",
       required: true,
     },
+    companySector: {
+       type: String,
+       required: true,
+    },
+
     location: {
       type: String,
       required: true,
