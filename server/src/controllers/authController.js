@@ -63,7 +63,6 @@ export const register = async (req, res) => {
     const resume = await uploadToCloudinary(resumeLocalPath);
 
     const profileImage = await uploadToCloudinary(profileImageLocalPath);
-    console.log(resume, profileImage);
 
     const newStudent = await Student.create({
       fullName,
@@ -78,27 +77,18 @@ export const register = async (req, res) => {
     const registedStudent = await Student.findById(newStudent._id).select(
       "-password -refershToken"
     );
-    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-      newStudent._id
-    );
 
     const options = {
       httpOnly: true,
       secure: true,
     };
-    res
-      .status(201)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .json({
-        success: true,
-        message: "Student registered successfully",
-        data: {
-          student: registedStudent,
-          accessToken,
-          refreshToken,
-        },
-      });
+    res.status(201).json({
+      success: true,
+      message: "Student registered successfully",
+      data: {
+        student: registedStudent,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
