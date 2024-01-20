@@ -20,7 +20,7 @@ authRouter.post(
       maxCount: 1,
     },
     {
-      name: "ProfileImage",
+      name: "profileImage",
       maxCount: 1,
     },
   ]),
