@@ -18,6 +18,10 @@ const companySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    employees: {
+       type: Number,
+       required: true,
+    },
     description: {
       type: String,
       required: true,

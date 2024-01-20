@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const studentScheme = mongoose.Schema(
   {
@@ -31,6 +31,13 @@ const studentScheme = mongoose.Schema(
         type: String,
       },
     ],
+    resume: {
+      type: String,
+      required: true,
+    },
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

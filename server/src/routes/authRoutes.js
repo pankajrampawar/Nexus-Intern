@@ -1,23 +1,39 @@
 import express from "express";
-import { login, register } from "../controllers/authController.js";
+import {
+  companyLogin,
+  login,
+  register,
+  companyRegister,
+  logout,
+  companyLogout,
+} from "../controllers/authController.js";
 import { upload } from "../middlewares/multerMiddleware.js";
+import verifyStudentToken from "../middlewares/authMiddleware.js";
 
 const authRouter = express.Router();
+//student routes
 authRouter.post(
-  "/register",
-  upload.fields(
+  "/student/register",
+  upload.fields([
     {
       name: "resume",
       maxCount: 1,
     },
     {
-      name: "ProfileImage",
+      name: "profileImage",
       maxCount: 1,
-    }
-  ),
+    },
+  ]),
   register
 );
 
-authRouter.post("/login", login);
+authRouter.post("/student/login", login);
+authRouter.post("/student/logout", verifyStudentToken, logout);
+
+//company routes
+
+authRouter.post("/company/register", companyRegister);
+authRouter.post("/company/login", companyLogin);
+authRouter.post("/company/logout", companyLogout);
 
 export default authRouter;
