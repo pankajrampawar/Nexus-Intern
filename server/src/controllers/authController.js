@@ -105,6 +105,24 @@ export const login = async (req, res) => {
     if ([email, password].some((fields) => fields.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
+    const existingStudent=await Student.findOne({email});
+    if(!existingStudent){
+      throw new ApiError(404,"Student not found");
+    }
+    const passwordMatch=await bcrypt.compare(password,existingStudent.password);
+    if(!passwordMatch){
+      throw new ApiError(400,"Incorrect Password");
+    }
+    const refreshToken = await generateAccessAndRefreshToken(existingStudent._id);
+    
+    res.status(201).json({
+      message: "Login Successfull",
+      data: {
+        student: existingStudent,
+        refreshToken,
+      },
+    });
+
     
 
   } catch (error) {
