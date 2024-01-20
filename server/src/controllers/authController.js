@@ -21,6 +21,22 @@ const generateAccessAndRefreshToken = async (studentId) => {
   }
 };
 
+const generateAccessAndRefreshTokenCompany = async (companyId) => {
+  try {
+    const company = await Company.findById(companyId);
+    if (!company) {
+      throw new ApiError(404, "Company not found");
+    }
+    const accessToken = company.genrateAccessToken();
+    const refreshToken = company.generateRefreshToken();
+    company.refreshToken = refreshToken;
+    await company.save({ validBeforeSave: false });
+    return { accessToken, refreshToken };
+  } catch (error) {
+    console.log("failed to create token", error.message);
+  }
+};
+
 // Student Auth Controllers
 
 export const register = async (req, res) => {
@@ -194,7 +210,7 @@ export const companyLogin = async (req, res) => {
       throw new ApiError(400, "All fields are required");
     }
 
-    const company = await Company.find({ email }).select("-refreshToken");
+    const company = await Company.findOne({ email }).select("-refreshToken");
 
     if (!company) {
       throw new ApiError(404, "Company not found");
@@ -206,9 +222,8 @@ export const companyLogin = async (req, res) => {
       throw new ApiError(400, "Incorrect Password");
     }
 
-    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-      company._id
-    );
+    const { accessToken, refreshToken } =
+      await generateAccessAndRefreshTokenCompany(company._id);
 
     const options = {
       httpOnly: true,
