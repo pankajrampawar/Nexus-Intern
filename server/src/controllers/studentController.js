@@ -76,3 +76,19 @@ export const editBio = async (req, res) => {
     return res.status(500).json({ message: 'Server error unable to process the request' });
   }
 };
+
+
+export const getStudentInfo = () => {
+  try {
+    const userId = req.body.userId;
+    const student = Student.findById(userId);
+
+    if (!student) {
+      res.status(404).json({ message: "Student not found" });
+    }
+
+    res.status(200).json({ message: "Student data fetched", student });
+  } catch (error) {
+    return res.status(500).json({ message: "server error unable to process the request" });
+  }
+}

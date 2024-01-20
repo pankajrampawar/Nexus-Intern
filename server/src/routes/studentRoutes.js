@@ -2,11 +2,13 @@ import express from 'express'
 import {
     applyForInternship,
     editBio,
-    editSkills
+    editSkills,
+    getStudentInfo
 } from '../controllers/studentController'
 
 const studentRouter = express.Router();
 
+studentRouter.get("StudentInfo", getStudentInfo)
 studentRouter.post("/applyForInternship", applyForInternship);
 studentRouter.post("/editBio", editBio);
 studentRouter.post("/editSkills", editSkills);
