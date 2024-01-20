@@ -51,19 +51,10 @@ export const register = async (req, res) => {
     if (!profileImageLocalPath) {
       throw new ApiError(400, "Profile image is required");
     }
-    let resumeLocalPath;
-    if (
-      req.files &&
-      Array.isArray(req.files.resume) &&
-      req.files.resume.length > 0
-    ) {
-      resumeLocalPath = req.files.resume[0].path;
-    }
-    if (!resumeLocalPath) {
+    if (!resume) {
       throw new ApiError(400, "Resume is required");
     }
     console.log(resumeLocalPath, profileImageLocalPath);
-    const resume = await uploadToCloudinary(resumeLocalPath);
 
     const profileImage = await uploadToCloudinary(profileImageLocalPath);
 
