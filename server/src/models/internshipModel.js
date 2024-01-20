@@ -47,32 +47,31 @@ const internshipSchema = new mongoose.Schema(
     applicants: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Student"
+        ref: "Student",
       },
     ],
     selected: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Student"
+        ref: "Student",
       },
     ],
     rejected: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Student"
+        ref: "Student",
       },
     ],
     status: {
-      type: Boolean,      
+      type: Boolean,
     },
     locationType: {
       type: ["On Site", "Remote"],
       required: true,
     },
-    studentSelected:{
+    studentSelected: {
       type: Number,
-      required: true,
-    }
+    },
   },
   { timestamps: true }
 );

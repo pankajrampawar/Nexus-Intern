@@ -1,11 +1,34 @@
 import { Internship } from "../models/internshipModel.js";
 
-export const addInternship = async (req, res, next) => {
+export const addInternship = async (req, res) => {
   try {
-    const { title, description, skills, stipend, duration } = req.body;
+    const {
+      title,
+      description,
+      company,
+      location,
+      stipend,
+      skills,
+      applyBy,
+      duration,
+      time,
+      type,
+      status,
+      locationType,
+    } = req.body;
+    console.log(
+      title,
+      description,
+      company,
+      location,
+      time,
+      type,
+      locationType,
+      status
+    );
     if (
-      [title, description, skills, stipend, duration].some(
-        (fields) => fields.trim() === ""
+      [title, description, company, location, time, type, locationType].some(
+        (field) => field.trim() === ""
       )
     ) {
       throw new ApiError(400, "All fields are required");
@@ -13,9 +36,16 @@ export const addInternship = async (req, res, next) => {
     const internship = await Internship.create({
       title,
       description,
-      skills,
+      company,
+      location,
       stipend,
+      skills,
+      applyBy,
       duration,
+      time,
+      type,
+      status,
+      locationType,
     });
     res.status(201).json({
       status: "success",
@@ -24,7 +54,7 @@ export const addInternship = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    console.log(error);
   }
 };
 
@@ -37,26 +67,24 @@ export const filterThroughLocation = async (req, res) => {
     return res.status(200).json({ internships });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: "Internal server error", error });
   }
 };
-
 
 export const filterThroughStipend = async (req, res) => {
   try {
     const { stipend } = req.body;
 
     const internships = await Internship.find({
-      stipend: { $gte: stipend.lower, $lte: stipend.upper }
+      stipend: { $gte: stipend.lower, $lte: stipend.upper },
     });
 
     return res.status(200).json({ internships });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: "Internal server error", error });
   }
 };
-
 
 export const filterThroughDuration = async (req, res) => {
   try {
@@ -67,10 +95,9 @@ export const filterThroughDuration = async (req, res) => {
     return res.status(200).json({ internships });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: "Internal server error", error });
   }
 };
-
 
 export const getAllInternships = async (req, res) => {
   try {
@@ -78,7 +105,6 @@ export const getAllInternships = async (req, res) => {
 
     res.status(200).json({ message: "interships fetched", internships });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error })
+    res.status(500).json({ message: "Internal server error", error });
   }
-}
-
+};
