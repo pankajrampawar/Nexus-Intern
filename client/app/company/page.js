@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <main className="flex ml-auto p-4 text-white gap-10 text-2xl">
             <div className="bg-primary p-10 flex justify-center items-center rounded-2xl cursor-pointer"
-                onClick={ addInternships}
+                onClick={addInternships}
             >
                 Add Internship
             </div>

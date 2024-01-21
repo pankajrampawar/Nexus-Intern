@@ -68,9 +68,12 @@ export const getInternship = async (id) => {
 
 export const fetchTheUsers = async(id) => {
   try {
-    const response = await axios.post()
+    const response = await axios.post('http://localhost:8080/api/company/getAllStudents', {
+      companyId: id
+    })
+    console.log(response);
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }
 }
-
