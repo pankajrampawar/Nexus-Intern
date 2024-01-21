@@ -34,7 +34,7 @@ const StudentForm = () => {
         );
         Cookies.set("accessToken", response.data.data.accessToken);
         Cookies.set("refreshToken", response.data.data.refreshToken);
-        localStorage.setItem("userId", response.data.data.company._id);
+        localStorage.setItem("companyId", response.data.data.company._id);
         router.push("/student/Home");
       } else {
         console.error("Failed to submit form");

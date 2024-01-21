@@ -64,6 +64,22 @@ export const studentLogin = async (data) => {
   }
 };
 
+export const companyLogin = async (data) => {
+  try {
+    console.log(data);
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/company/login",
+      {
+        email: data.email,
+        password: data.password,
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getUserInfo = async (id) => {
   try {
     const response = await axios.post(
@@ -126,4 +142,4 @@ export const fetchTheUsers = async (id) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
