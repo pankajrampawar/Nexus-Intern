@@ -126,4 +126,4 @@ export const fetchTheUsers = async (id) => {
   } catch (error) {
     throw new Error(error);
   }
-};
+}

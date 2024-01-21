@@ -10,7 +10,7 @@ export default function CompanyLayout({ children }) {
                 </div>
             </nav>
 
-            <section className="flex mx-auto my-auto">
+            <section className="flex mx-auto mt-10">
                 {children}
             </section>
         </main>
