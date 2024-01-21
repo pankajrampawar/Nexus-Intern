@@ -23,7 +23,7 @@ export default function Applications() {
         <div className='min-w-[1000px]'>
             {
                 students && students.map((element) => {
-                    return <UserAnalysisCard name={element.fullName} phone={element.phone} email={element.email} college={element.college} bio={element.bio} resume={element.resume} sills={element.skills} id={element._id}/>
+                    return <UserAnalysisCard key={element.phone} name={element.fullName} phone={element.phone} email={element.email} college={element.college} bio={element.bio} resume={element.resume} sills={element.skills} id={element._id}/>
                 })
             }
         </div>

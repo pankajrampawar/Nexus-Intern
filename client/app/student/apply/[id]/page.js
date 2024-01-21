@@ -59,7 +59,7 @@ export default function Apply() {
                     { info.skills 
                         &&
                         info.skills.map((element) => {
-                            return <div>
+                            return <div key={element}>
                                 {element}
                                 </div>
                         })
