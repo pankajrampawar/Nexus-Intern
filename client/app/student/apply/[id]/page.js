@@ -2,13 +2,22 @@
 
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import { getInternship } from "@/app/action"
+import { applyForInternship, getInternship } from "@/app/action"
+import { useRouter } from "next/navigation"
 
 export default function Apply() {
 
     const params = useParams()
+    const router = useRouter();
 
     const [info, setInfo] = useState({})
+    
+    const HandleApply = async ()=>{
+        const userId = "65ab92bd98f8d750e03053fb"
+        const response = applyForInternship(params.id, userId);
+        alert(response);
+        router.push("/student/Home")
+    }
 
     useEffect(()=>{
         const getInternshipInfo = async() => {
@@ -69,7 +78,7 @@ export default function Apply() {
             </section>
             
             <section className="mt-10 ml-auto">
-                <button className="bg-teal-600 p-4 rounded-2xl">Apply</button>
+                <button className="bg-teal-600 p-4 rounded-2xl" onClick={HandleApply}>Apply</button>
             </section>
         </main>
     )
