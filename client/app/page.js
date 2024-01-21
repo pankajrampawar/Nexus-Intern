@@ -3,7 +3,97 @@ import { useState } from "react";
 import clsx from "clsx";
 import { studentSignup } from "@/app/action.js";
 const StudentForm = () => {
-  const [formData, setFormData] = useState({
+
+  const [fullName,setFullName]=useState("");
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+  const [phone,setPhone]=useState("");
+  const [bio,setBio]=useState("");
+  const [skill,setSkill]=useState("");
+  const [resume,setResume]=useState("");
+  const [college,setCollege]=useState("");
+  
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const handlePageChange = (action) => {
+    if (action === "sum") {
+      setPageNumber((prev) => prev + 1);
+    } else if (action === "minus") {
+      setPageNumber((prev) => prev - 1);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "fullName":
+        setFullName(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      case "phone":
+        setPhone(value);
+        break;
+      case "bio":
+        setBio(value);
+        break;
+      case "skill":
+        setSkill(value);
+        break;
+      case "resume":
+        setResume(value);
+        break;
+      case "college":
+        setCollege(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log({
+      fullName,
+      email,
+      password,
+      phone,
+      bio,
+      skill,
+      resume,
+      college,
+    });
+
+    try {
+      const response = await studentSignup({
+        fullName,
+        email,
+        password,
+        phone,
+        bio,
+        skill,
+        resume,
+        college,
+      });
+
+      if (response) {
+        console.log("Form submitted successfully!");
+      } else {
+        console.error("Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
+  };
+
+
+
+  /*const [formData, setFormData] = useState({
     fullName: "",
     profileImage: "",
     email: "",
@@ -13,12 +103,12 @@ const StudentForm = () => {
     skill: "",
     resume: "",
     college: "",
-  });
-
+  });*/
+  /*
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     console.log(name, value, type);
-    const newValue = type === "file" ? e.target.files[0] : value;
+    /*const newValue = type === "file" ? e.target.files[0] : value;
 
     setFormData((prevData) => ({ ...prevData, [name]: newValue }));
   };
@@ -70,7 +160,7 @@ const StudentForm = () => {
       setPageNumber((prev) => prev - 1);
     }
   };
-
+*/
   return (
     <div className="min-h-screen flex items-center justify-center">
       <form
@@ -92,7 +182,7 @@ const StudentForm = () => {
             type="text"
             id="fullName"
             name="fullName"
-            value={formData.fullName}
+            value={fullName}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -117,7 +207,7 @@ const StudentForm = () => {
             onChange={handleChange}
             accept="image/*"
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
-            required
+            //required
           />
         </div>
 
@@ -136,7 +226,7 @@ const StudentForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
+            value={email}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -158,7 +248,7 @@ const StudentForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
+            value={password}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -180,7 +270,7 @@ const StudentForm = () => {
             type="number"
             id="phone"
             name="phone"
-            value={formData.phone}
+            value={phone}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -202,7 +292,7 @@ const StudentForm = () => {
             type="text"
             id="bio"
             name="bio"
-            value={formData.bio}
+            value={bio}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -224,7 +314,7 @@ const StudentForm = () => {
             type="text"
             id="skill"
             name="skill"
-            value={formData.skill}
+            value={skill}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -247,12 +337,12 @@ const StudentForm = () => {
             type="text"
             id="college"
             name="college"
-            value={formData.college}
+            value={college}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
           />
-          {formData.college}
+          {college}
         </div>
 
         <div
@@ -270,7 +360,7 @@ const StudentForm = () => {
             type="text"
             id="resume"
             name="resume"
-            value={formData.resume}
+            value={resume}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
