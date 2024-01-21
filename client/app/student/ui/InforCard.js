@@ -13,7 +13,7 @@ export default function InfoCard(props) {
     };
 
     return (
-        <div className="flex flex-col justify-between text-white bg-primary max-w-[300px] min-w-[300px] gap-2 p-4 max-h-[200px] min-h-[200px] rounded-2xl cursor-pointer"
+        <div className="flex flex-col justify-between text-white bg-primary max-w-[300px] min-w-[300px] gap-2 p-4 max-h-[250px] min-h-[250px] rounded-2xl cursor-pointer"
             onClick={handleClick}
         >
             <div className="font-semibold text-2xl tracking-wide">
