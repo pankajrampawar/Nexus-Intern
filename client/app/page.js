@@ -1,21 +1,23 @@
 "use client";
 import { useState } from "react";
 import clsx from "clsx";
-import { studentLogin } from "@/app/action.js";
+import { studentSignup } from "@/app/action.js";
 const StudentForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
-    profileImage: null,
+    profileImage: "",
     email: "",
     password: "",
     phone: "",
     bio: "",
     skill: "",
     resume: "",
+    college: "",
   });
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
+    console.log(name, value, type);
     const newValue = type === "file" ? e.target.files[0] : value;
 
     setFormData((prevData) => ({ ...prevData, [name]: newValue }));
@@ -23,15 +25,22 @@ const StudentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
     try {
-      const formDataWithFile = new FormData();
+      const newFormData = new FormData();
+      console.log(formData);
+      newFormData.append("fullName", formData.fullName);
+      newFormData.append("profileImage", formData.profileImage);
+      newFormData.append("email", formData.email);
+      newFormData.append("password", formData.password);
+      newFormData.append("phone", formData.phone);
+      newFormData.append("bio", formData.bio);
+      newFormData.append("skill", formData.skill);
+      newFormData.append("resume", formData.resume);
+      newFormData.append("college", formData.college);
 
-      for (const key in formData) {
-        formDataWithFile.append(key, formData[key]);
-      }
-
-      const response = await studentLogin(formDataWithFile);
+      console.log(newFormData, "hello");
+      const response = await studentSignup(formData);
 
       if (response) {
         console.log("Form submitted successfully!");
@@ -44,6 +53,15 @@ const StudentForm = () => {
   };
 
   const [pageNumber, setPageNumber] = useState(1);
+
+  const submitForm = async () => {
+    try {
+      const response = await studentSignup(formData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handlePageChange = (prop) => {
     if (prop === "sum") {
@@ -206,7 +224,7 @@ const StudentForm = () => {
             type="text"
             id="skill"
             name="skill"
-            value={formData.skill1}
+            value={formData.skill}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required

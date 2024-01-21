@@ -42,15 +42,14 @@ const generateAccessAndRefreshTokenCompany = async (companyId) => {
 export const register = async (req, res) => {
   try {
     const { fullName, email, password, phone, info, resumeUrl } = req.body;
-    console.log(fullName, email, password, phone, info);
+    console.log(fullName, email, password, phone, info, req.files);
+
     if (
-      [fullName, email, password, phone, info].some(
-        (fields) => fields.trim() === ""
-      )
+      [fullName, email, password, phone].some((fields) => fields.trim() === "")
     ) {
       throw new ApiError(400, "All fields are required");
     }
-
+    console.log(req.files.profileImage[0].path);
     const student = await Student.findOne({ email });
     if (student) {
       throw new ApiError(400, "Email already exists");

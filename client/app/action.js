@@ -15,39 +15,66 @@ export const getAllInternships = async () => {
 
 export const studentSignup = async (data) => {
   try {
+    console.log(data);
     const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("profileImage", data.profileImage);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("fullName", data.fullName);
     formData.append("phone", data.phone);
-    formData.append("info", data.info);
-    formData.append("profileImage", data.profileImage);
+    formData.append("info", {
+      bio: data.bio,
+      skill: data.skill,
+      resume: data.resume,
+      college: data.college,
+    });
+    console.log(formData);
+    return await axios.post(
+      "http://localhost:8080/api/auth/student/register",
+      {
+        formData,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
   } catch (error) {
     console.log(error);
+    // You might want to throw the error here to propagate it to the calling code
+    throw error;
   }
 };
 
 export const getUserInfo = async (id) => {
   try {
-    const response  = await axios.post("http://localhost:8080/api/student/StudentInfo", {
-      userId: id
-    });
+    const response = await axios.post(
+      "http://localhost:8080/api/student/StudentInfo",
+      {
+        userId: id,
+      }
+    );
 
-    console.log(response.data)
-    return (response.data.student);
+    console.log(response.data);
+    return response.data.student;
   } catch (error) {
-    alert('unable to get the user info');
-    console.log(error)
+    alert("unable to get the user info");
+    console.log(error);
   }
-}
+};
 
 export const applyForInternship = async (internshipId, userId) => {
   try {
-    const response = await axios.post("http://localhost:8080/api/student/applyForInternship", {
-      userId: userId, internshipId: internshipId 
-    })
-    console.log(response.data)
-    return (response.data.message);
+    const response = await axios.post(
+      "http://localhost:8080/api/student/applyForInternship",
+      {
+        userId: userId,
+        internshipId: internshipId,
+      }
+    );
+    console.log(response.data);
+    return response.data.message;
   } catch (error) {
     alert(error);
     return null;
@@ -56,31 +83,30 @@ export const applyForInternship = async (internshipId, userId) => {
 
 export const getInternship = async (id) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/internships/getInternshipById', {
-      internshipId: id
-    });
+    const response = await axios.post(
+      "http://localhost:8080/api/internships/getInternshipById",
+      {
+        internshipId: id,
+      }
+    );
 
-    return (response.data)
+    return response.data;
   } catch (error) {
-    alert(error)
+    alert(error);
   }
-}
+};
 
-export const fetchTheUsers = async(id) => {
+export const fetchTheUsers = async (id) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/company/getAllStudents', {
-      companyId: id
-    }) 
-    return response.data.students;
+    const response = await axios.post(
+      "http://localhost:8080/api/company/getAllStudents",
+      {
+        companyId: id,
+      }
+    );
+    console.log(response);
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }
 }
-
-// export const acceptInvitation = () => {
-//   const c
-// }
-
-// export const rejectInvitation = () => {
-
-// }

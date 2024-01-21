@@ -38,46 +38,42 @@ export const acceptOrRejectIntern = async (req, res) => {
   }
 };
 
-
-export const getApplicantsForInternship=async (req, res) => {
+export const getApplicantsForInternship = async (req, res) => {
   try {
-
     const { internshipId, companyId } = req.body;
 
     if (!internshipId || !companyId) {
-      return res.status(400).json({ error: 'Both internshipId and companyId are required' });
+      return res
+        .status(400)
+        .json({ error: "Both internshipId and companyId are required" });
     }
 
-    
-    const internship = await Internship.findOne({ _id: internshipId, company: companyId })
-      .populate('applicants');
+    const internship = await Internship.findOne({
+      _id: internshipId,
+      company: companyId,
+    }).populate("applicants");
 
     if (!internship) {
-      console.error('Internship not found');
-      return res.status(404).json({ error: 'Internship not found' });
+      console.error("Internship not found");
+      return res.status(404).json({ error: "Internship not found" });
     }
 
     const applicants = internship.applicants;
 
-   
     return res.status(200).json({ applicants });
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-
 };
 
-export const getAcceptedStudents=async (req,res)=>{
-
-   try{
-    
-   }catch(error){
-    console.error('Error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
-   }
-
-}
+export const getAcceptedStudents = async (req, res) => {
+  try {
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 export const getStudentsAppliedForInternship = async (req, res) => {
   try {
@@ -88,13 +84,15 @@ export const getStudentsAppliedForInternship = async (req, res) => {
     let appliedStudents = [];
 
     for (const internship of internships) {
-      const students = await Student.find({ '_id': { $in: internship.applicants } });
+      const students = await Student.find({
+        _id: { $in: internship.applicants },
+      });
       appliedStudents = appliedStudents.concat(students);
     }
 
     res.status(200).json({ students: appliedStudents });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
