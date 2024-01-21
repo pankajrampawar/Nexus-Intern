@@ -65,3 +65,12 @@ export const getInternship = async (id) => {
     alert(error)
   }
 }
+
+export const fetchTheUsers = async(id) => {
+  try {
+    const response = await axios.post()
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+

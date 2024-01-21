@@ -1,11 +1,17 @@
-import Sidebar from '@/app/company/ui'
+import Sidebar from "../ui/sidebar"
 
 
 export default function CompanyLayout({ children }) {
     return (
-        <main>
-            <section>
-                <Navbar/>
+        <main className='h-screen bg-surface-color overflow-hidden flex flex-row'>
+            <nav className="h-full p-6 overflow-y-auto">
+                <div className="h-full">
+                    <Sidebar/> 
+                </div>
+            </nav>
+
+            <section className="flex mx-auto my-auto">
+                {children}
             </section>
         </main>
     )

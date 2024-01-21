@@ -78,3 +78,24 @@ export const getAcceptedStudents=async (req,res)=>{
    }
 
 }
+
+export const getStudentsAppliedForInternship = async (req, res) => {
+  try {
+
+    const companyId = req.body.companyId;
+
+    const internships = await Internship.find({ company: companyId });
+
+    let appliedStudents = [];
+
+    for (const internship of internships) {
+      const students = await Student.find({ '_id': { $in: internship.applicants } });
+      appliedStudents = appliedStudents.concat(students);
+    }
+
+    res.status(200).json({ students: appliedStudents });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
