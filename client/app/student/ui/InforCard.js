@@ -20,7 +20,7 @@ export default function InfoCard(props) {
                 <h1>{props.title} </h1>
             </div>
 
-            <p className="max-h-[70px] overflow-hidden text-medium font-normal">{props.details}</p>
+            <p className="max-h-[90px] overflow-hidden text-medium font-normal">{props.details}</p>
 
             <div className="flex text-gray-400 justify-between pr-5">
                 <p>${props.stipend}/month</p>
