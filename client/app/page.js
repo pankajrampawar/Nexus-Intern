@@ -2,98 +2,9 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { studentSignup } from "@/app/action.js";
+import axios from "axios";
 const StudentForm = () => {
-
-  const [fullName,setFullName]=useState("");
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
-  const [phone,setPhone]=useState("");
-  const [bio,setBio]=useState("");
-  const [skill,setSkill]=useState("");
-  const [resume,setResume]=useState("");
-  const [college,setCollege]=useState("");
-  
-  const [pageNumber, setPageNumber] = useState(1);
-
-  const handlePageChange = (action) => {
-    if (action === "sum") {
-      setPageNumber((prev) => prev + 1);
-    } else if (action === "minus") {
-      setPageNumber((prev) => prev - 1);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "fullName":
-        setFullName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "password":
-        setPassword(value);
-        break;
-      case "phone":
-        setPhone(value);
-        break;
-      case "bio":
-        setBio(value);
-        break;
-      case "skill":
-        setSkill(value);
-        break;
-      case "resume":
-        setResume(value);
-        break;
-      case "college":
-        setCollege(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log({
-      fullName,
-      email,
-      password,
-      phone,
-      bio,
-      skill,
-      resume,
-      college,
-    });
-
-    try {
-      const response = await studentSignup({
-        fullName,
-        email,
-        password,
-        phone,
-        bio,
-        skill,
-        resume,
-        college,
-      });
-
-      if (response) {
-        console.log("Form submitted successfully!");
-      } else {
-        console.error("Failed to submit form");
-      }
-    } catch (error) {
-      console.error("Error submitting form", error);
-    }
-  };
-
-
-
-  /*const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     fullName: "",
     profileImage: "",
     email: "",
@@ -103,12 +14,12 @@ const StudentForm = () => {
     skill: "",
     resume: "",
     college: "",
-  });*/
-  /*
+  });
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     console.log(name, value, type);
-    /*const newValue = type === "file" ? e.target.files[0] : value;
+    const newValue = type === "file" ? e.target.files[0] : value;
 
     setFormData((prevData) => ({ ...prevData, [name]: newValue }));
   };
@@ -117,28 +28,25 @@ const StudentForm = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      const newFormData = new FormData();
-      console.log(formData);
-      newFormData.append("fullName", formData.fullName);
-      newFormData.append("profileImage", formData.profileImage);
-      newFormData.append("email", formData.email);
-      newFormData.append("password", formData.password);
-      newFormData.append("phone", formData.phone);
-      newFormData.append("bio", formData.bio);
-      newFormData.append("skill", formData.skill);
-      newFormData.append("resume", formData.resume);
-      newFormData.append("college", formData.college);
+      const formDataWithFile = new FormData();
 
-      console.log(newFormData, "hello");
-      const response = await studentSignup(formData);
-
-      if (response) {
-        console.log("Form submitted successfully!");
-      } else {
-        console.error("Failed to submit form");
+      for (const key in formData) {
+        console.log(key, formData[key]);
+        formDataWithFile.append(key, formData[key]);
       }
+      console.log(formDataWithFile);
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/student/register",
+        formDataWithFile, // Use formDataWithFile instead of formData
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response);
     } catch (error) {
-      console.error("Error submitting form", error);
+      console.log(error);
     }
   };
 
@@ -160,7 +68,7 @@ const StudentForm = () => {
       setPageNumber((prev) => prev - 1);
     }
   };
-*/
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <form
@@ -182,7 +90,7 @@ const StudentForm = () => {
             type="text"
             id="fullName"
             name="fullName"
-            value={fullName}
+            value={formData.fullName}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -207,7 +115,7 @@ const StudentForm = () => {
             onChange={handleChange}
             accept="image/*"
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
-            //required
+            required
           />
         </div>
 
@@ -226,7 +134,7 @@ const StudentForm = () => {
             type="email"
             id="email"
             name="email"
-            value={email}
+            value={formData.email}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -248,7 +156,7 @@ const StudentForm = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
+            value={formData.password}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -270,7 +178,7 @@ const StudentForm = () => {
             type="number"
             id="phone"
             name="phone"
-            value={phone}
+            value={formData.phone}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -292,7 +200,7 @@ const StudentForm = () => {
             type="text"
             id="bio"
             name="bio"
-            value={bio}
+            value={formData.bio}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -314,7 +222,7 @@ const StudentForm = () => {
             type="text"
             id="skill"
             name="skill"
-            value={skill}
+            value={formData.skill}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl m-1 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
@@ -337,12 +245,12 @@ const StudentForm = () => {
             type="text"
             id="college"
             name="college"
-            value={college}
+            value={formData.college}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
           />
-          {college}
+          {formData.college}
         </div>
 
         <div
@@ -360,7 +268,7 @@ const StudentForm = () => {
             type="text"
             id="resume"
             name="resume"
-            value={resume}
+            value={formData.resume}
             onChange={handleChange}
             className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-on-primary"
             required
