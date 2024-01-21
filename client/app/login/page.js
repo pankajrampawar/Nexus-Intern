@@ -29,10 +29,12 @@ const StudentForm = () => {
         console.log("Form submitted successfully!");
         console.log(
           response.data.data.refreshToken,
-          response.data.data.accessToken
+          response.data.data.accessToken,
+          response.data.data.student._id
         );
         Cookies.set("accessToken", response.data.data.accessToken);
         Cookies.set("refreshToken", response.data.data.refreshToken);
+        localStorage.setItem("userId", response.data.data.student._id);
         router.push("/student/Home");
       } else {
         console.error("Failed to submit form");

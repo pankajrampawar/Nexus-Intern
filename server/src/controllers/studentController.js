@@ -103,7 +103,8 @@ export const getStudentInfo = async (req, res) => {
 
     res.status(200).json({ message: "Student data fetched", student });
   } catch (error) {
-    return res.status(500).json({ message: "server error unable to process the request" });
+    return res
+      .status(500)
+      .json({ message: "server error unable to process the request" });
   }
 };
-
