@@ -17,16 +17,28 @@ export const studentSignup = async (data) => {
   try {
     console.log(data);
     const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("profileImage", data.profileImage);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("fullName", data.fullName);
     formData.append("phone", data.phone);
-    formData.append("bio", data.info); // Change 'info' to 'bio'
-    formData.append("profileImage", data.profileImage);
-
+    formData.append("info", {
+      bio: data.bio,
+      skill: data.skill,
+      resume: data.resume,
+      college: data.college,
+    });
+    console.log(formData);
     return await axios.post(
       "http://localhost:8080/api/auth/student/register",
-      formData
+      {
+        formData,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   } catch (error) {
     console.log(error);

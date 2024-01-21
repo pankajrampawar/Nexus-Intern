@@ -15,16 +15,7 @@ import {
 
 const authRouter = express.Router();
 //student routes
-authRouter.post(
-  "/student/register",
-  upload.fields([
-    {
-      name: "profileImage",
-      maxCount: 1,
-    },
-  ]),
-  register
-);
+authRouter.post("/student/register", register);
 
 authRouter.post("/student/login", login);
 authRouter.post("/student/logout", verifyStudentToken, logout);

@@ -12,10 +12,12 @@ const StudentForm = () => {
     bio: "",
     skill: "",
     resume: "",
+    college: "",
   });
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
+    console.log(name, value, type);
     const newValue = type === "file" ? e.target.files[0] : value;
 
     setFormData((prevData) => ({ ...prevData, [name]: newValue }));
@@ -23,16 +25,23 @@ const StudentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
     try {
-      const formDataWithFile = new FormData();
+      const newFormData = new FormData();
+      console.log(formData);
+      newFormData.append("fullName", formData.fullName);
+      newFormData.append("profileImage", formData.profileImage);
+      newFormData.append("email", formData.email);
+      newFormData.append("password", formData.password);
+      newFormData.append("phone", formData.phone);
+      newFormData.append("bio", formData.bio);
+      newFormData.append("skill", formData.skill);
+      newFormData.append("resume", formData.resume);
+      newFormData.append("college", formData.college);
 
-      for (const key in formData) {
-        formDataWithFile.append(key, formData[key]);
-      }
-      console.log(formDataWithFile);
-      const response = await studentSignup(formDataWithFile);
-      console.log(response);
+      console.log(newFormData, "hello");
+      const response = await studentSignup(formData);
+
       if (response) {
         console.log("Form submitted successfully!");
       } else {
@@ -44,6 +53,15 @@ const StudentForm = () => {
   };
 
   const [pageNumber, setPageNumber] = useState(1);
+
+  const submitForm = async () => {
+    try {
+      const response = await studentSignup(formData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handlePageChange = (prop) => {
     if (prop === "sum") {
