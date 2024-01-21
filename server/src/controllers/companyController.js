@@ -96,3 +96,14 @@ export const getStudentsAppliedForInternship = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+////
+
+export const getCompanyInfo  = async (req, res) => {
+  try {
+    const companyId = req.body.
+    const companyInfo = 
+  } catch (error) { 
+    res.status(500).json({ error: "internal server error" })
+  }
+}
