@@ -13,6 +13,7 @@ const generateAccessAndRefreshToken = async (studentId) => {
     }
     const accessToken = student.genrateAccessToken();
     const refreshToken = student.generateRefreshToken();
+    console.log(accessToken, refreshToken);
     student.refreshToken = refreshToken;
     await student.save({ validBeforeSave: false });
     return { accessToken, refreshToken };

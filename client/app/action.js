@@ -47,6 +47,23 @@ export const studentSignup = async (data) => {
   }
 };
 
+export const studentLogin = async (data) => {
+  try {
+    console.log(data);
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/student/login",
+      {
+        email: data.email,
+        password: data.password,
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getUserInfo = async (id) => {
   try {
     const response = await axios.post(

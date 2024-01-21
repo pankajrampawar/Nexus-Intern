@@ -9,7 +9,6 @@ const studentScheme = mongoose.Schema({
   },
   profileImage: {
     type: String,
-    
   },
   email: {
     type: String,
@@ -28,7 +27,6 @@ const studentScheme = mongoose.Schema({
   },
   bio: {
     type: String,
-    required: true,
   },
   skills: {
     type: Array,
@@ -36,7 +34,6 @@ const studentScheme = mongoose.Schema({
   },
   college: {
     type: String,
-    required: true,
   },
   education: {
     type: String,
@@ -49,7 +46,6 @@ const studentScheme = mongoose.Schema({
   ],
   resumeurl: {
     type: String,
-    required: true,
   },
   refreshToken: {
     type: String,
