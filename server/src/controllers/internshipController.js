@@ -54,6 +54,16 @@ export const addInternship = async (req, res) => {
   }
 };
 
+export const getInternshipById = async (req, res) => {
+  try {
+    const { internshipId } = req.body;
+    const internshipInfo = await Internship.findById(internshipId);
+    res.status(200).json({ internshipInfo });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
+
 export const filterThroughLocation = async (req, res) => {
   try {
     const { location } = req.body;
@@ -97,10 +107,8 @@ export const filterThroughDuration = async (req, res) => {
 
 export const getAllInternships = async (req, res) => {
   try {
-  
-    const {internshipId}=req.body;
-     
-    const internships = await Internship.findById(internshipId);
+       
+    const internships = await Internship.find();
 
     res.status(200).json({ message: "interships fetched", internships });
   } catch (error) {
