@@ -81,7 +81,6 @@ export const getAcceptedStudents=async (req,res)=>{
 
 export const getStudentsAppliedForInternship = async (req, res) => {
   try {
-
     const companyId = req.body.companyId;
 
     const internships = await Internship.find({ company: companyId });
