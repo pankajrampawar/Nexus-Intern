@@ -11,11 +11,12 @@ export default function Apply() {
     const router = useRouter();
 
     const [info, setInfo] = useState({})
-    
+    const [companyName, setCompanyName] = useState('');
+
     const HandleApply = async ()=>{
         const userId = "65ab92bd98f8d750e03053fb"
-        const response = applyForInternship(params.id, userId);
-        alert(response);
+        const response = await applyForInternship(params.id, userId);
+        alert(response)
         router.push("/student/Home")
     }
 
@@ -23,7 +24,8 @@ export default function Apply() {
         const getInternshipInfo = async() => {
             const newInfo  = await getInternship(params.id);
             console.log(newInfo)
-            setInfo(newInfo)
+            setInfo(newInfo.internshipInfo)
+            setCompanyName(newInfo.companyName)
         }
         getInternshipInfo();
     }, [])
@@ -41,7 +43,7 @@ export default function Apply() {
 
             <section className="flex flex-col mt-20 gap-10 pb-10 border-b">
                 <div className="flex justify-start gap-40 items-center">
-                    <span className="text-3xl font-bold">Comapany name</span><span className="ml-auto">{info.companySector}</span>
+                    <span className="text-3xl font-bold">{companyName}</span><span className="ml-auto">{info.companySector}</span>
                 </div>
 
                 <div className="flex justify-between">

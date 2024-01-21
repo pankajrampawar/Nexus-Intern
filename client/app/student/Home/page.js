@@ -54,7 +54,7 @@ export default function Home() {
                         {   internships &&
                             internships.map((element) => {
                                 if (element.companySector === "Banking") {
-                                    return <InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/>
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
                                 }
                             })
                         }
@@ -66,7 +66,7 @@ export default function Home() {
                         {       internships &&internships &&
                             internships.map((element) => {
                                 if (element.companySector === "Real Estate") {
-                                    return <InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/>
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
                                 }
                             })
                         }
@@ -78,7 +78,7 @@ export default function Home() {
                         {   internships &&
                             internships.map((element) => {
                                 if (element.companySector === "Automobile") {
-                                    return <InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/>
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
                                 }
                             })
                         }
@@ -90,7 +90,7 @@ export default function Home() {
                         {   internships &&
                             internships.map((element) => {
                                 if (element.companySector === "FMCG") {
-                                    return <InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/>
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
                                 }
                             })
                         }

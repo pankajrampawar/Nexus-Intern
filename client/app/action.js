@@ -46,7 +46,8 @@ export const applyForInternship = async (internshipId, userId) => {
     const response = await axios.post("http://localhost:8080/api/student/applyForInternship", {
       userId: userId, internshipId: internshipId 
     })
-    return (response.data);
+    console.log(response.data)
+    return (response.data.message);
   } catch (error) {
     alert(error);
     return null;
@@ -59,7 +60,7 @@ export const getInternship = async (id) => {
       internshipId: id
     });
 
-    return (response.data.internshipInfo)
+    return (response.data)
   } catch (error) {
     alert(error)
   }
