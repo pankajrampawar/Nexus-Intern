@@ -66,8 +66,8 @@ export default function FilterCard() {
                 </div>
 
                 <div className='flex justify-evenly text-base font-semibold tracking-wider'>
-                    <div>Save</div>
-                    <div>Discard</div>
+                    <div className='bg-teal-800 p-2 rounded-xl'>Save</div>
+                    <div className='bg-teal-800 p-2 rounded-xl'>Discard</div>
                 </div>
         </main>
     )
