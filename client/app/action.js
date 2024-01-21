@@ -70,10 +70,17 @@ export const fetchTheUsers = async(id) => {
   try {
     const response = await axios.post('http://localhost:8080/api/company/getAllStudents', {
       companyId: id
-    })
-    console.log(response);
-    return response.data;
+    }) 
+    return response.data.students;
   } catch (error) {
     throw new Error(error);
   }
 }
+
+// export const acceptInvitation = () => {
+//   const c
+// }
+
+// export const rejectInvitation = () => {
+
+// }
