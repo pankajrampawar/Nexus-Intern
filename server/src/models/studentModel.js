@@ -9,7 +9,7 @@ const studentScheme = mongoose.Schema({
   },
   profileImage: {
     type: String,
-    required: true,
+    
   },
   email: {
     type: String,
@@ -47,7 +47,7 @@ const studentScheme = mongoose.Schema({
       ref: "",
     },
   ],
-  resume: {
+  resumeurl: {
     type: String,
     required: true,
   },

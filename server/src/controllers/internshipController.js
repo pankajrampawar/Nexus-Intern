@@ -54,6 +54,34 @@ export const addInternship = async (req, res) => {
   }
 };
 
+// export const getInternshipById = async (req, res) => {
+//   try {
+//     const { internshipId } = req.body;
+//     const internshipInfo = await Internship.findById(internshipId);
+//     res.status(200).json({ internshipInfo });
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal server error", error });
+//   }
+// }
+
+export const getInternshipById = async (req, res) => {
+  try {
+    const { internshipId } = req.body;
+    const internshipInfo = await Internship.findById(internshipId).populate('company');
+    
+    // Check if internshipInfo is null or undefined
+    if (!internshipInfo) {
+      return res.status(404).json({ message: 'Internship not found' });
+    }
+
+    const companyName = internshipInfo.company.companyName;  // Access the companyName property
+
+    res.status(200).json({ internshipInfo, companyName });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+}
+
 export const filterThroughLocation = async (req, res) => {
   try {
     const { location } = req.body;
@@ -97,6 +125,7 @@ export const filterThroughDuration = async (req, res) => {
 
 export const getAllInternships = async (req, res) => {
   try {
+       
     const internships = await Internship.find();
 
     res.status(200).json({ message: "interships fetched", internships });

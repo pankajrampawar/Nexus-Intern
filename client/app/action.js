@@ -45,9 +45,56 @@ export const getUserInfo = async (id) => {
     );
 
     console.log(response.data);
-    return response.data;
+    return response.data.student;
   } catch (error) {
     alert("unable to get the user info");
     console.log(error);
+  }
+};
+
+export const applyForInternship = async (internshipId, userId) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/student/applyForInternship",
+      {
+        userId: userId,
+        internshipId: internshipId,
+      }
+    );
+    console.log(response.data);
+    return response.data.message;
+  } catch (error) {
+    alert(error);
+    return null;
+  }
+};
+
+export const getInternship = async (id) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/internships/getInternshipById",
+      {
+        internshipId: id,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    alert(error);
+  }
+};
+
+export const fetchTheUsers = async (id) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/company/getAllStudents",
+      {
+        companyId: id,
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
   }
 };

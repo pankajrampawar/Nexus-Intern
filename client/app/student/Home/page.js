@@ -5,6 +5,7 @@ import React from 'react'
 import {
     getAllInternships
 } from '@/app/action.js'
+import Link from "next/link"
 
 export default function Home() {
 
@@ -38,31 +39,61 @@ export default function Home() {
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Technology</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-
+                        {   internships &&
+                            internships.map((element) => {
+                                if (element.companySector === "Technology") {
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Banking</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-
+                        {   internships &&
+                            internships.map((element) => {
+                                if (element.companySector === "Banking") {
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Civil</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-
+                        {       internships &&internships &&
+                            internships.map((element) => {
+                                if (element.companySector === "Real Estate") {
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">Automobile</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-
+                        {   internships &&
+                            internships.map((element) => {
+                                if (element.companySector === "Automobile") {
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col itmes-center sm:start">
                     <h1 className="text-xl sm:text-3xl font-semibold hover-pointer text-center sm:text-start">FMCG</h1>
                     <div className="flex gap-20 mt-10 m-2 sm:ml-10 overflow-scroll flex-grow">
-
+                        {   internships &&
+                            internships.map((element) => {
+                                if (element.companySector === "FMCG") {
+                                    return <Link href={`/student/apply/${element._id}`}><InfoCard title={element.title} details={element.description} stipend={element.stipend} days="3"/></Link>
+                                }
+                            })
+                        }
                     </div>
                 </div>
                 

@@ -2,7 +2,7 @@ export const navList = [
     {
         name: "Home",
         img: "/home.svg",
-        link: "Home"
+        link: "/student/Home"
     },
     {
         name: "Profile",

@@ -14,7 +14,7 @@ export default function HomeLayout({ children }) {
                 <MobileMenu/>
             </nav>
 
-            <section className="min-h-full overflow-y-auto flex-grow sm:ml-5">
+            <section className="min-h-full overflow-y-auto flex-grow sm:ml-52">
                 {children}
             </section>
         </main>
